@@ -576,6 +576,7 @@ h1 {
   background: var(--t-accent);
   background: -webkit-linear-gradient(15deg, var(--t-accent) 0%, var(--t-secondary) 80%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 @media only screen and (min-width: 768px) {
@@ -741,6 +742,7 @@ h2 {
   background: var(--t-accent);
   background: -webkit-linear-gradient(15deg, var(--t-accent) 0%, var(--t-secondary) 80%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 @media only screen and (min-width: 768px) {
@@ -3198,6 +3200,7 @@ form textarea:required:valid {
   background: var(--t-accent);
   background: -webkit-linear-gradient(15deg, var(--t-accent) 0%, var(--t-secondary) 80%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 @media only screen and (min-width: 768px) {
@@ -3673,6 +3676,7 @@ form textarea:required:valid {
   background: var(--t-accent);
   background: -webkit-linear-gradient(15deg, var(--t-accent) 0%, var(--t-secondary) 80%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 @media only screen and (min-width: 1200px) {
@@ -4035,6 +4039,7 @@ form textarea:required:valid {
   background: var(--t-accent);
   background: -webkit-linear-gradient(15deg, var(--t-accent) 0%, var(--t-secondary) 80%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 .tauthor__rating i:last-of-type {
