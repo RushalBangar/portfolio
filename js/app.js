@@ -43,45 +43,37 @@ $(function() {
   // --------------------------------------------- //
   // Loader & Loading Animation Start
   // --------------------------------------------- //
-  const content = document.querySelector('body');
-  const imgLoad = imagesLoaded(content);
-
-  imgLoad.on('done', instance => {
-    document.getElementById("loaderContent").classList.add("fade-out");
-    setTimeout(() => {
-      document.getElementById("loader").classList.add("loaded");
-    }, 300);
-
-    if (!prefersReducedMotion) {
-      gsap.set(".animate-headline", {y: 28, opacity: 0});
-      ScrollTrigger.batch(".animate-headline", {
-        interval: 0.1,
-        batchMax: 4,
-        duration: 6,
-        onEnter: batch => gsap.to(batch, {
-          opacity: 1,
-          y: 0,
-          ease: 'power2.out',
-          stagger: {each: 0.12, grid: [1, 4]},
-          overwrite: true
-        }),
-        onLeave: batch => gsap.set(batch, {opacity: 1, y: 0, overwrite: true}),
-        onEnterBack: batch => gsap.to(batch, {opacity: 1, y: 0, stagger: 0.12, overwrite: true}),
-        onLeaveBack: batch => gsap.set(batch, {opacity: 0, y: 28, overwrite: true})
-      });
-    }
-
-  });
-
-  // Safety timeout: if imagesLoaded stalls (e.g. external 503 errors), force-dismiss loader after 4s
-  setTimeout(() => {
+  const hideLoader = () => {
     const loader = document.getElementById("loader");
     if (loader && !loader.classList.contains("loaded")) {
       document.getElementById("loaderContent").classList.add("fade-out");
-      setTimeout(() => loader.classList.add("loaded"), 300);
+      setTimeout(() => loader.classList.add("loaded"), 150); // fast dismiss
     }
-  }, 4000);
 
+    if (!prefersReducedMotion) {
+      gsap.set(".animate-headline", {y: 16, opacity: 0});
+      ScrollTrigger.batch(".animate-headline", {
+        interval: 0.05,
+        batchMax: 4,
+        onEnter: batch => gsap.to(batch, {
+          opacity: 1,
+          y: 0,
+          ease: 'power3.out',
+          duration: 0.6,
+          stagger: {each: 0.08, grid: [1, 4]},
+          overwrite: true
+        })
+      });
+    }
+  };
+
+  // Do not wait for all images, just wait for DOM to be ready for instant perceived load
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    setTimeout(hideLoader, 50);
+  } else {
+    document.addEventListener("DOMContentLoaded", hideLoader);
+    window.addEventListener("load", hideLoader); // fallback
+  }
   // --------------------------------------------- //
   // Loader & Loading Animation End
   // --------------------------------------------- //
@@ -101,7 +93,13 @@ $(function() {
   // --------------------------------------------- //
   // Lenis Scroll Plugin Start
   // --------------------------------------------- //
-  const lenis = new Lenis();
+  const lenis = new Lenis({
+    duration: 1.0, 
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+    smoothWheel: true,
+    wheelMultiplier: 1.2, 
+    touchMultiplier: 2,
+  });
   function raf(time) {
     lenis.raf(time);
     requestAnimationFrame(raf);
@@ -131,21 +129,21 @@ $(function() {
   // --------------------------------------------- //
 
   // --------------------------------------------- //
-  // Scroll Animations Start (Refined)
+  // Scroll Animations Start (Refined for Speed)
   // --------------------------------------------- //
   if (!prefersReducedMotion) {
 
-    // Animation In Up — refined y value and easing
+    // Animation In Up — much faster and snappier
     const animateInUp = document.querySelectorAll(".animate-in-up");
     animateInUp.forEach((element) => {
       gsap.fromTo(element, {
         opacity: 0,
-        y: 28,
+        y: 16,
       }, {
         y: 0,
         opacity: 1,
-        duration: 0.7,
-        ease: 'power2.out',
+        duration: 0.4,
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: element,
           toggleActions: 'play none none reverse',
@@ -161,7 +159,7 @@ $(function() {
         rotate: 0,
       }, {
         rotate: value,
-        ease: 'power2.out',
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: section,
           scrub: true,
@@ -171,57 +169,57 @@ $(function() {
     });
 
     // Animation Cards Stack — Grid 2x
-    gsap.set(".animate-card-2", {y: 60, opacity: 0});
+    gsap.set(".animate-card-2", {y: 24, opacity: 0});
     ScrollTrigger.batch(".animate-card-2", {
-      interval: 0.1,
+      interval: 0.05,
       batchMax: 2,
-      duration: 6,
       onEnter: batch => gsap.to(batch, {
         opacity: 1,
         y: 0,
-        ease: 'power2.out',
-        stagger: {each: 0.12, grid: [1, 2]},
+        ease: 'power3.out',
+        duration: 0.5,
+        stagger: {each: 0.08, grid: [1, 2]},
         overwrite: true
       }),
       onLeave: batch => gsap.set(batch, {opacity: 1, y: 0, overwrite: true}),
-      onEnterBack: batch => gsap.to(batch, {opacity: 1, y: 0, stagger: 0.12, overwrite: true}),
-      onLeaveBack: batch => gsap.set(batch, {opacity: 0, y: 60, overwrite: true})
+      onEnterBack: batch => gsap.to(batch, {opacity: 1, y: 0, stagger: 0.08, overwrite: true}),
+      onLeaveBack: batch => gsap.set(batch, {opacity: 0, y: 24, overwrite: true})
     });
 
     // Grid 3x
-    gsap.set(".animate-card-3", {y: 36, opacity: 0});
+    gsap.set(".animate-card-3", {y: 16, opacity: 0});
     ScrollTrigger.batch(".animate-card-3", {
-      interval: 0.1,
+      interval: 0.05,
       batchMax: 3,
-      duration: 3,
       onEnter: batch => gsap.to(batch, {
         opacity: 1,
         y: 0,
-        ease: 'power2.out',
-        stagger: {each: 0.12, grid: [1, 3]},
+        ease: 'power3.out',
+        duration: 0.5,
+        stagger: {each: 0.06, grid: [1, 3]},
         overwrite: true
       }),
       onLeave: batch => gsap.set(batch, {opacity: 1, y: 0, overwrite: true}),
-      onEnterBack: batch => gsap.to(batch, {opacity: 1, y: 0, stagger: 0.12, overwrite: true}),
-      onLeaveBack: batch => gsap.set(batch, {opacity: 0, y: 36, overwrite: true})
+      onEnterBack: batch => gsap.to(batch, {opacity: 1, y: 0, stagger: 0.06, overwrite: true}),
+      onLeaveBack: batch => gsap.set(batch, {opacity: 0, y: 16, overwrite: true})
     });
 
     // Grid 5x
-    gsap.set(".animate-card-5", {y: 36, opacity: 0});
+    gsap.set(".animate-card-5", {y: 16, opacity: 0});
     ScrollTrigger.batch(".animate-card-5", {
-      interval: 0.1,
+      interval: 0.05,
       batchMax: 5,
-      delay: 1000,
       onEnter: batch => gsap.to(batch, {
         opacity: 1,
         y: 0,
-        ease: 'power2.out',
-        stagger: {each: 0.10, grid: [1, 5]},
+        ease: 'power3.out',
+        duration: 0.5,
+        stagger: {each: 0.05, grid: [1, 5]},
         overwrite: true
       }),
       onLeave: batch => gsap.set(batch, {opacity: 1, y: 0, overwrite: true}),
-      onEnterBack: batch => gsap.to(batch, {opacity: 1, y: 0, stagger: 0.10, overwrite: true}),
-      onLeaveBack: batch => gsap.set(batch, {opacity: 0, y: 36, overwrite: true})
+      onEnterBack: batch => gsap.to(batch, {opacity: 1, y: 0, stagger: 0.05, overwrite: true}),
+      onLeaveBack: batch => gsap.set(batch, {opacity: 0, y: 16, overwrite: true})
     });
 
     ScrollTrigger.addEventListener("refreshInit", () => gsap.set(".animate-card-2", {y: 0, opacity: 1}));
