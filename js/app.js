@@ -47,7 +47,6 @@ $(function() {
   const imgLoad = imagesLoaded(content);
 
   imgLoad.on('done', instance => {
-
     document.getElementById("loaderContent").classList.add("fade-out");
     setTimeout(() => {
       document.getElementById("loader").classList.add("loaded");
@@ -73,6 +72,16 @@ $(function() {
     }
 
   });
+
+  // Safety timeout: if imagesLoaded stalls (e.g. external 503 errors), force-dismiss loader after 4s
+  setTimeout(() => {
+    const loader = document.getElementById("loader");
+    if (loader && !loader.classList.contains("loaded")) {
+      document.getElementById("loaderContent").classList.add("fade-out");
+      setTimeout(() => loader.classList.add("loaded"), 300);
+    }
+  }, 4000);
+
   // --------------------------------------------- //
   // Loader & Loading Animation End
   // --------------------------------------------- //
@@ -358,9 +367,12 @@ $(function() {
   // PhotoSwipe Gallery Images Replace Start
   // --------------------------------------------- //
   $('.gallery__link').each(function(){
-    $(this)
-    .append('<div class="picture"></div>')
-    .children('.picture').css({'background-image': 'url('+ $(this).attr('data-image') +')'});
+    const dataImage = $(this).attr('data-image');
+    if (dataImage && dataImage !== 'undefined') {
+      $(this)
+        .append('<div class="picture"></div>')
+        .children('.picture').css({'background-image': 'url('+ dataImage +')'});
+    }
   });
   // --------------------------------------------- //
   // PhotoSwipe Gallery Images Replace End
