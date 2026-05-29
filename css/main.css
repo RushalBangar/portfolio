@@ -4788,6 +4788,40 @@ form textarea:required:valid {
   }
 }
 
+/* ------------------------------------------------*/
+/* 1% Micro-Polish (The "Premium" Feel Details)    */
+/* ------------------------------------------------*/
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--base); 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--stroke-elements); 
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--stroke-controls); 
+}
+
+/* Branded Text Selection (When recruiter highlights text) */
+::selection {
+  background: rgba(0, 212, 255, 0.2);
+  color: var(--t-bright);
+}
+::-moz-selection {
+  background: rgba(0, 212, 255, 0.2);
+  color: var(--t-bright);
+}
+
+/* Typography Breathing Room (Editorial Feel) */
+p, .about-descr__text, .resume-lines__descr, .gallery__descr p {
+  line-height: 1.7 !important;
+}
+
 /* ================================================ */
 /* END PREMIUM ADDITIONS                             */
 /* ================================================ */
