@@ -1,530 +1,102 @@
-// ------------------------------------------------
-// Project Name: Braxton - Personal Portfolio & Resume HTML Template
-// File name: app.js — Enhanced for Premium Professional Edition
-// ------------------------------------------------
+// Wait for DOM and window to load
+window.addEventListener('load', () => {
+    
+    // 1. Initialize Lenis for Buttery Smooth Scrolling
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Custom easing for premium feel
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+    });
 
-// ------------------------------------------------
-// Table of Contents
-// ------------------------------------------------
-//
-//  01. Loader & Loading Animation
-//  02. Bootstrap Scroll Spy Plugin Settings
-//  03. Lenis Scroll Plugin
-//  04. Parallax
-//  05. Scroll Animations (Refined)
-//  06. Smooth Scrolling
-//  07. Swiper Slider
-//  08. Contact Form
-//  09. Modernizr SVG Fallback
-//  10. Chrome Smooth Scroll
-//  11. Images Moving Ban
-//  12. Detecting Mobile/Desktop
-//  13. PhotoSwipe Gallery Images Replace
-//  14. Color Switch
-//  15. Reading Progress Bar
-//  16. Back to Top Button
-//  17. Header Glassmorphism on Scroll
-//  18. Achievement Counter Animation
-//  19. Reduced Motion Check
-//
-// ------------------------------------------------
-
-// ------------------------------------------------
-// Reduced Motion Check (run before anything else)
-// ------------------------------------------------
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-$(function() {
-
-  "use strict";
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  // --------------------------------------------- //
-  // Loader & Loading Animation Start
-  // --------------------------------------------- //
-  const hideLoader = () => {
-    const loader = document.getElementById("loader");
-    if (loader && !loader.classList.contains("loaded")) {
-      document.getElementById("loaderContent").classList.add("fade-out");
-      setTimeout(() => loader.classList.add("loaded"), 150); // fast dismiss
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
     }
-
-    if (!prefersReducedMotion) {
-      gsap.set(".animate-headline", {y: 16, opacity: 0});
-      ScrollTrigger.batch(".animate-headline", {
-        interval: 0.05,
-        batchMax: 4,
-        onEnter: batch => gsap.to(batch, {
-          opacity: 1,
-          y: 0,
-          ease: 'power3.out',
-          duration: 0.6,
-          stagger: {each: 0.08, grid: [1, 4]},
-          overwrite: true
-        })
-      });
-    }
-  };
-
-  // Do not wait for all images, just wait for DOM to be ready for instant perceived load
-  if (document.readyState === "complete" || document.readyState === "interactive") {
-    setTimeout(hideLoader, 50);
-  } else {
-    document.addEventListener("DOMContentLoaded", hideLoader);
-    window.addEventListener("load", hideLoader); // fallback
-  }
-  // --------------------------------------------- //
-  // Loader & Loading Animation End
-  // --------------------------------------------- //
-
-  // --------------------------------------------- //
-  // Bootstrap Scroll Spy Plugin Settings Start
-  // --------------------------------------------- //
-  const scrollSpy = new bootstrap.ScrollSpy(document.body, {
-    target: '#menu',
-    smoothScroll: true,
-    rootMargin: '0px 0px -40%',
-  });
-  // --------------------------------------------- //
-  // Bootstrap Scroll Spy Plugin Settings End
-  // --------------------------------------------- //
-
-  // --------------------------------------------- //
-  // Lenis Scroll Plugin Start
-  // --------------------------------------------- //
-  const lenis = new Lenis({
-    duration: 0.7, 
-    easing: (t) => 1 - Math.pow(1 - t, 4), 
-    smoothWheel: true,
-    wheelMultiplier: 1.5, 
-    touchMultiplier: 2.5,
-  });
-  function raf(time) {
-    lenis.raf(time);
     requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
-  // --------------------------------------------- //
-  // Lenis Scroll Plugin End
-  // --------------------------------------------- //
 
-  // --------------------------------------------- //
-  // Parallax Start
-  // --------------------------------------------- //
-  if (!prefersReducedMotion) {
-    gsap.to("[data-speed]", {
-      y: (i, el) => (1 - parseFloat(el.getAttribute("data-speed"))) * ScrollTrigger.maxScroll(window),
-      ease: "none",
-      scrollTrigger: {
-        start: 0,
-        end: "max",
-        invalidateOnRefresh: true,
-        scrub: 0
-      }
-    });
-  }
-  // --------------------------------------------- //
-  // Parallax End
-  // --------------------------------------------- //
+    // 2. Register GSAP Plugins
+    gsap.registerPlugin(ScrollTrigger);
 
-  // --------------------------------------------- //
-  // Scroll Animations Start (Refined for Speed)
-  // --------------------------------------------- //
-  if (!prefersReducedMotion) {
-
-    // Animation In Up — much faster and snappier
-    const animateInUp = document.querySelectorAll(".animate-in-up");
-    animateInUp.forEach((element) => {
-      gsap.fromTo(element, {
-        opacity: 0,
-        y: 16,
-      }, {
-        y: 0,
-        opacity: 1,
-        duration: 0.3,
-        ease: 'expo.out',
-        scrollTrigger: {
-          trigger: element,
-          toggleActions: 'play none none reverse',
+    // Remove Loader
+    gsap.to('.loader-text', { opacity: 1, duration: 1, ease: 'power2.inOut' });
+    gsap.to('.loader', {
+        y: '-100%',
+        duration: 1.5,
+        delay: 1.5,
+        ease: 'expo.inOut',
+        onComplete: () => {
+            document.body.classList.remove('loading');
+            initAnimations();
         }
-      });
     });
 
-    // Animation Rotation
-    const animateRotation = document.querySelectorAll(".animate-rotation");
-    animateRotation.forEach((section) => {
-      var value = $(section).data("value");
-      gsap.fromTo(section, {
-        rotate: 0,
-      }, {
-        rotate: value,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: section,
-          scrub: true,
-          toggleActions: 'play none none reverse',
-        }
-      });
-    });
+    // 3. Initialize Animations
+    function initAnimations() {
+        
+        const horizontalContainer = document.querySelector('.horizontal-container');
+        const panels = gsap.utils.toArray('.panel');
+        
+        // Calculate the total scroll distance based on the width of all panels combined minus the viewport width
+        // panels.length * 100vw = 400vw. We need to move left by 300vw.
+        const totalScrollDistance = horizontalContainer.scrollWidth - window.innerWidth;
 
-    // Animation Cards Stack — Grid 2x
-    gsap.set(".animate-card-2", {y: 24, opacity: 0});
-    ScrollTrigger.batch(".animate-card-2", {
-      interval: 0.05,
-      batchMax: 2,
-      onEnter: batch => gsap.to(batch, {
-        opacity: 1,
-        y: 0,
-        ease: 'power3.out',
-        duration: 0.5,
-        stagger: {each: 0.08, grid: [1, 2]},
-        overwrite: true
-      }),
-      onLeave: batch => gsap.set(batch, {opacity: 1, y: 0, overwrite: true}),
-      onEnterBack: batch => gsap.to(batch, {opacity: 1, y: 0, stagger: 0.08, overwrite: true}),
-      onLeaveBack: batch => gsap.set(batch, {opacity: 0, y: 24, overwrite: true})
-    });
-
-    // Grid 3x
-    gsap.set(".animate-card-3", {y: 16, opacity: 0});
-    ScrollTrigger.batch(".animate-card-3", {
-      interval: 0.05,
-      batchMax: 3,
-      onEnter: batch => gsap.to(batch, {
-        opacity: 1,
-        y: 0,
-        ease: 'back.out(1.5)',
-        duration: 0.35,
-        stagger: {each: 0.06, grid: [1, 3]},
-        overwrite: true
-      }),
-      onLeave: batch => gsap.set(batch, {opacity: 1, y: 0, overwrite: true}),
-      onEnterBack: batch => gsap.to(batch, {opacity: 1, y: 0, stagger: 0.06, overwrite: true}),
-      onLeaveBack: batch => gsap.set(batch, {opacity: 0, y: 16, overwrite: true})
-    });
-
-    // Grid 5x
-    gsap.set(".animate-card-5", {y: 16, opacity: 0});
-    ScrollTrigger.batch(".animate-card-5", {
-      interval: 0.05,
-      batchMax: 5,
-      onEnter: batch => gsap.to(batch, {
-        opacity: 1,
-        y: 0,
-        ease: 'power3.out',
-        duration: 0.5,
-        stagger: {each: 0.05, grid: [1, 5]},
-        overwrite: true
-      }),
-      onLeave: batch => gsap.set(batch, {opacity: 1, y: 0, overwrite: true}),
-      onEnterBack: batch => gsap.to(batch, {opacity: 1, y: 0, stagger: 0.05, overwrite: true}),
-      onLeaveBack: batch => gsap.set(batch, {opacity: 0, y: 16, overwrite: true})
-    });
-
-    ScrollTrigger.addEventListener("refreshInit", () => gsap.set(".animate-card-2", {y: 0, opacity: 1}));
-    ScrollTrigger.addEventListener("refreshInit", () => gsap.set(".animate-card-3", {y: 0, opacity: 1}));
-    ScrollTrigger.addEventListener("refreshInit", () => gsap.set(".animate-card-5", {y: 0, opacity: 1}));
-
-  }
-  // --------------------------------------------- //
-  // Scroll Animations End
-  // --------------------------------------------- //
-
-  // --------------------------------------------- //
-  // Smooth Scrolling Start
-  // --------------------------------------------- //
-  $('a[href*="#"]').not('[href="#"]').not('[href="#0"]').click(function(event) {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-      if (target.length) {
-        event.preventDefault();
-        $('html, body').animate({
-          scrollTop: target.offset().top
-        }, 1000, function() {
-          var $target = $(target);
-          $target.focus();
-          if ($target.is(":focus")) {
-            return false;
-          } else {
-            $target.attr('tabindex','-1');
-            $target.focus();
-          };
+        // HORIZONTAL SCROLL TRIGGER
+        gsap.to(horizontalContainer, {
+            x: () => -totalScrollDistance,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#smooth-wrapper",
+                pin: true,
+                scrub: 0.5, // Smooth scrubbing
+                end: () => "+=" + totalScrollDistance, // The distance to scroll vertically
+                invalidateOnRefresh: true // Recalculates on resize
+            }
         });
-      }
+
+        // PARALLAX EFFECTS INSIDE HORIZONTAL SCROLL
+        // We select elements with data-speed and move them on the x axis slightly differently than the container
+        const parallaxElements = gsap.utils.toArray('[data-speed]');
+        
+        parallaxElements.forEach(el => {
+            const speed = parseFloat(el.getAttribute('data-speed'));
+            // If speed < 1, it moves slower. If speed > 1, it moves faster.
+            // Since the container is moving left, we offset the element to the right or left
+            const offset = (1 - speed) * window.innerWidth;
+            
+            gsap.to(el, {
+                x: offset,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#smooth-wrapper",
+                    scrub: 0.5,
+                    start: "top top",
+                    end: () => "+=" + totalScrollDistance,
+                    invalidateOnRefresh: true
+                }
+            });
+        });
+        
+        // Intro animations for Hero
+        const tl = gsap.timeline();
+        tl.fromTo('.huge-title', 
+            { y: 100, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1.5, ease: 'expo.out', stagger: 0.2 }
+        )
+        .fromTo('.hero-desc',
+            { opacity: 0 },
+            { opacity: 1, duration: 1, ease: 'power2.out' },
+            "-=1"
+        )
+        .fromTo('.hero-avatar',
+            { scale: 0.8, opacity: 0, rotationY: -90 },
+            { scale: 1, opacity: 1, rotationY: 0, duration: 2, ease: 'elastic.out(1, 0.7)' },
+            "-=1.5"
+        );
     }
-  });
-  // --------------------------------------------- //
-  // Smooth Scrolling End
-  // --------------------------------------------- //
-
-  // --------------------------------------------- //
-  // Swiper Slider Start
-  // --------------------------------------------- //
-  const toolsSlider = document.querySelector("tools-slider");
-  const testimonialsSlider = document.querySelector("testimonials-slider");
-
-  if (!toolsSlider) {
-    const swiper = new Swiper('.swiper-tools', {
-      spaceBetween: 20,
-      autoplay: {
-        delay: 1500,
-        disableOnInteraction: false,
-      },
-      loop: true,
-      grabCursor: true,
-      loopFillGroupWithBlank: true,
-      breakpoints: {
-        1600: { slidesPerView: 5 },
-        1200: { slidesPerView: 4 },
-        768:  { slidesPerView: 3 },
-        576:  { slidesPerView: 2 },
-        0:    { slidesPerView: 2 }
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-      },
-    });
-  };
-
-  if (document.querySelector('.swiper-testimonials')) {
-    const swiper = new Swiper('.swiper-testimonials', {
-      slidesPerView: 1,
-      spaceBetween: 20,
-      autoplay: true,
-      speed: 1000,
-      loop: true,
-      loopFillGroupWithBlank: true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-    });
-  };
-  // --------------------------------------------- //
-  // Swiper Slider End
-  // --------------------------------------------- //
-
-  // --------------------------------------------- //
-  // Contact Form - handled by inline Formspree handler in index.html
-  // --------------------------------------------- //
-
-  // --------------------------------------------- //
-  // Modernizr SVG Fallback Start
-  // --------------------------------------------- //
-  if(!Modernizr.svg) {
-    $("img[src*='svg']").attr("src", function() {
-      return $(this).attr("src").replace(".svg", ".png");
-    });
-  };
-  // --------------------------------------------- //
-  // Modernizr SVG Fallback End
-  // --------------------------------------------- //
-
-  // --------------------------------------------- //
-  // Chrome Smooth Scroll Start
-  // --------------------------------------------- //
-  try {
-    $.browserSelector();
-    if($("html").hasClass("chrome")) {
-      $.smoothScroll();
-    }
-  } catch(err) {
-  };
-  // --------------------------------------------- //
-  // Chrome Smooth Scroll End
-  // --------------------------------------------- //
-
-  // --------------------------------------------- //
-  // Images Moving Ban Start
-  // --------------------------------------------- //
-  $("img, a").on("dragstart", function(event) { event.preventDefault(); });
-  // --------------------------------------------- //
-  // Images Moving Ban End
-  // --------------------------------------------- //
-
-  // --------------------------------------------- //
-  // Detecting Mobile/Desktop Start
-  // --------------------------------------------- //
-  var isMobile = false;
-  if( /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    $('html').addClass('touch');
-    isMobile = true;
-  } else {
-    $('html').addClass('no-touch');
-    isMobile = false;
-  }
-  var isIE = /MSIE 9/i.test(navigator.userAgent) || /rv:11.0/i.test(navigator.userAgent) || /MSIE 10/i.test(navigator.userAgent) || /Edge\/\d+/.test(navigator.userAgent);
-  // --------------------------------------------- //
-  // Detecting Mobile/Desktop End
-  // --------------------------------------------- //
-
-  // --------------------------------------------- //
-  // PhotoSwipe Gallery Images Replace Start
-  // --------------------------------------------- //
-  $('.gallery__link').each(function(){
-    const dataImage = $(this).attr('data-image');
-    if (dataImage && dataImage !== 'undefined') {
-      $(this)
-        .append('<div class="picture"></div>')
-        .children('.picture').css({'background-image': 'url('+ dataImage +')'});
-    }
-  });
-  // --------------------------------------------- //
-  // PhotoSwipe Gallery Images Replace End
-  // --------------------------------------------- //
-
-  // --------------------------------------------- //
-  // Achievement Counter Animation Start
-  // --------------------------------------------- //
-  function animateCounter(el, target, suffix, duration) {
-    const startTime = performance.now();
-    function update(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // easeOutCubic for smooth deceleration
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.floor(eased * target);
-      el.textContent = current + suffix;
-      if (progress < 1) {
-        requestAnimationFrame(update);
-      } else {
-        el.textContent = target + suffix;
-      }
-    }
-    requestAnimationFrame(update);
-  }
-
-  const counterEls = document.querySelectorAll('.achievements__number');
-  if (counterEls.length > 0 && !prefersReducedMotion) {
-    const counterData = [
-      { target: 10, suffix: '+' },  // Projects
-      { target: 1,  suffix: '+' },  // Years of experience
-      { target: 15, suffix: '+' },  // Skills Mastered
-    ];
-
-    const counterObserver = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          const data = counterData[i] !== undefined ? counterData[i] : { target: 0, suffix: '' };
-          animateCounter(entry.target, data.target, data.suffix, 1500);
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    counterEls.forEach(el => {
-      el.textContent = '0';
-      counterObserver.observe(el);
-    });
-  }
-  // --------------------------------------------- //
-  // Achievement Counter Animation End
-  // --------------------------------------------- //
-
 });
-
-// --------------------------------------------- //
-// Color Switch Start
-// --------------------------------------------- //
-const themeBtn = document.querySelector('.color-switcher');
-
-function getCurrentTheme(){
-  let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  localStorage.getItem('template.theme') ? theme = localStorage.getItem('template.theme') : null;
-  return theme;
-}
-
-function loadTheme(theme){
-  const root = document.querySelector(':root');
-  if(theme === "light"){
-    themeBtn.innerHTML = `<em></em><i class="ph-bold ph-moon-stars"></i>`;
-  } else {
-    themeBtn.innerHTML = `<em></em><i class="ph-bold ph-sun"></i>`;
-  }
-  root.setAttribute('color-scheme', `${theme}`);
-};
-
-themeBtn.addEventListener('click', () => {
-  let theme = getCurrentTheme();
-  if(theme === 'dark'){
-    theme = 'light';
-  } else {
-    theme = 'dark';
-  }
-  localStorage.setItem('template.theme', `${theme}`);
-  loadTheme(theme);
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-  loadTheme(getCurrentTheme());
-});
-// --------------------------------------------- //
-// Color Switch End
-// --------------------------------------------- //
-
-// --------------------------------------------- //
-// Reading Progress Bar Start
-// --------------------------------------------- //
-(function() {
-  const progressBar = document.getElementById('reading-progress');
-  if (!progressBar) return;
-
-  function updateProgress() {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    progressBar.style.width = progress + '%';
-    progressBar.setAttribute('aria-valuenow', Math.round(progress));
-  }
-
-  window.addEventListener('scroll', updateProgress, { passive: true });
-  updateProgress();
-})();
-// --------------------------------------------- //
-// Reading Progress Bar End
-// --------------------------------------------- //
-
-// --------------------------------------------- //
-// Back to Top Button Start
-// --------------------------------------------- //
-(function() {
-  const btn = document.getElementById('backToTop');
-  if (!btn) return;
-
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 320) {
-      btn.classList.add('is-visible');
-    } else {
-      btn.classList.remove('is-visible');
-    }
-  }, { passive: true });
-
-  btn.addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-})();
-// --------------------------------------------- //
-// Back to Top Button End
-// --------------------------------------------- //
-
-// --------------------------------------------- //
-// Header Glassmorphism on Scroll Start
-// --------------------------------------------- //
-(function() {
-  const header = document.getElementById('header');
-  if (!header) return;
-
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 60) {
-      header.classList.add('header--scrolled');
-    } else {
-      header.classList.remove('header--scrolled');
-    }
-  }, { passive: true });
-})();
-// --------------------------------------------- //
-// Header Glassmorphism on Scroll End
-// --------------------------------------------- //
