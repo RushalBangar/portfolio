@@ -66,6 +66,10 @@
 
   <body>
 
+    <!-- Grain Texture and Backgrounds -->
+    <div class="grain-overlay"></div>
+    <div class="iridescent-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2;"></div>
+    <div class="animated-mesh-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-3;"></div>
     <!-- Reading Progress Bar -->
     <div id="reading-progress" class="reading-progress" role="progressbar" aria-label="Reading progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 
@@ -203,8 +207,10 @@
               <p>Rushal Anna<br>Bangar</p>
             </div>
           </div>
-          <div class="avatar__image">
-            <img src="https://github.com/RushalBangar.png" alt="Rushal Anna Bangar's Portfolio">
+          <div class="avatar__image floating" style="position:relative;">
+            <div class="spinning-ring"></div>
+            <div class="spinning-ring-inner"></div>
+            <img src="https://github.com/RushalBangar.png" alt="Rushal Anna Bangar's Portfolio" style="position:relative; z-index:1; border-radius:50%;">
           </div>
         </div>
         <!-- data caption #1 -->

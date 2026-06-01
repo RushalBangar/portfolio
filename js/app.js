@@ -94,11 +94,11 @@ $(function() {
   // Lenis Scroll Plugin Start
   // --------------------------------------------- //
   const lenis = new Lenis({
-    duration: 1.0, 
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
+    duration: 0.7, 
+    easing: (t) => 1 - Math.pow(1 - t, 4), 
     smoothWheel: true,
-    wheelMultiplier: 1.2, 
-    touchMultiplier: 2,
+    wheelMultiplier: 1.5, 
+    touchMultiplier: 2.5,
   });
   function raf(time) {
     lenis.raf(time);
@@ -142,8 +142,8 @@ $(function() {
       }, {
         y: 0,
         opacity: 1,
-        duration: 0.4,
-        ease: 'power3.out',
+        duration: 0.3,
+        ease: 'expo.out',
         scrollTrigger: {
           trigger: element,
           toggleActions: 'play none none reverse',
@@ -194,8 +194,8 @@ $(function() {
       onEnter: batch => gsap.to(batch, {
         opacity: 1,
         y: 0,
-        ease: 'power3.out',
-        duration: 0.5,
+        ease: 'back.out(1.5)',
+        duration: 0.35,
         stagger: {each: 0.06, grid: [1, 3]},
         overwrite: true
       }),
