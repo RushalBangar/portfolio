@@ -504,6 +504,55 @@ function initApp() {
     );
 
     // -----------------------------------------------------------------------
+    // 12.5 CREDENTIALS CAROUSEL SCROLL NAVIGATION & REVEALS
+    // -----------------------------------------------------------------------
+    const track = document.querySelector('.credentials-track');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    if (track && prevBtn && nextBtn) {
+        const getScrollAmount = () => {
+            const card = track.querySelector('.credential-card');
+            if (!card) return 300;
+            const style = window.getComputedStyle(track);
+            const gap = parseFloat(style.gap) || 0;
+            return card.offsetWidth + gap;
+        };
+
+        prevBtn.addEventListener('click', () => {
+            track.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+        });
+
+        const updateButtons = () => {
+            const tolerance = 2;
+            const isAtStart = track.scrollLeft <= tolerance;
+            const isAtEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - tolerance;
+            prevBtn.style.opacity = isAtStart ? '0.3' : '1';
+            prevBtn.style.pointerEvents = isAtStart ? 'none' : 'all';
+            nextBtn.style.opacity = isAtEnd ? '0.3' : '1';
+            nextBtn.style.pointerEvents = isAtEnd ? 'none' : 'all';
+        };
+
+        track.addEventListener('scroll', updateButtons, { passive: true });
+        window.addEventListener('resize', updateButtons, { passive: true });
+        updateButtons();
+    }
+
+    gsap.fromTo('.credential-card',
+        { y: 30, opacity: 0 },
+        {
+            y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+            stagger: 0.08,
+            scrollTrigger: { trigger: '.credentials-track', start: 'top 82%', toggleActions: 'play reverse play reverse' },
+            clearProps: 'transform'
+        }
+    );
+
+    // -----------------------------------------------------------------------
     // 13. BUTTON RIPPLE on click
     //     BUG FIX: .link-arrow and .nav-cta have no overflow:hidden, so
     //     the ripple div bleeds outside visibly. Restrict to .btn only,
