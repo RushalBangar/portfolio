@@ -439,6 +439,10 @@ function initApp() {
         { y: 30, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.9, ease: 'back.out(2)', delay: 2.5 }
     );
+    gsap.fromTo('.float-badge-4',
+        { x: 40, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.9, ease: 'back.out(2)', delay: 2.7 }
+    );
 
     // -----------------------------------------------------------------------
     // 9. SKILL TAGS — Stagger wave from random positions

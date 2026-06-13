@@ -1145,6 +1145,13 @@ body.cursor-text-active .cursor-ring {
     animation: badgeFloat 4.5s ease-in-out infinite;
     animation-delay: -1s;
 }
+.float-badge-4 {
+    top: 18%; right: -24%;
+    border: 1px solid rgba(66, 133, 244, 0.3);
+    box-shadow: 0 0 20px rgba(66, 133, 244, 0.15), inset 0 0 12px rgba(66, 133, 244, 0.05);
+    animation: badgeFloat 5.5s ease-in-out infinite;
+    animation-delay: -1.5s;
+}
 
 @keyframes badgeFloat {
     0%, 100% { transform: translateY(0) rotate(-1deg); }
@@ -1162,6 +1169,7 @@ body.cursor-text-active .cursor-ring {
 .float-badge-1 .float-badge-num { background: linear-gradient(135deg, var(--primary), #0af); -webkit-background-clip: text; background-clip: text; }
 .float-badge-2 .float-badge-num { background: linear-gradient(135deg, var(--secondary), var(--accent)); -webkit-background-clip: text; background-clip: text; }
 .float-badge-3 .float-badge-num { background: linear-gradient(135deg, var(--accent), #f90); -webkit-background-clip: text; background-clip: text; }
+.float-badge-4 .float-badge-num { background: linear-gradient(135deg, #4285f4, #ea4335, #fbbc05, #34a853); -webkit-background-clip: text; background-clip: text; }
 
 .float-badge-label {
     font-family: var(--font-heading);
