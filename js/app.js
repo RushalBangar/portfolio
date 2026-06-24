@@ -25,7 +25,10 @@ window.addEventListener('load', () => {
           onComplete: () => {
               document.body.classList.remove('loading');
               preloader.style.display = 'none';
-              initApp();
+              // Defer initApp to the next frame to avoid call stack size errors in GSAP timeline tick callbacks
+              requestAnimationFrame(() => {
+                  initApp();
+              });
           }
       }, '-=0.2');
 });
@@ -80,7 +83,7 @@ function initApp() {
     }
 
     // -----------------------------------------------------------------------
-    // 2. CUSTOM CURSOR (desktop only) — use CSS transforms, not left/top
+    // 2. CUSTOM CURSOR (desktop only) — optimized to run via raw transform in requestAnimationFrame
     // -----------------------------------------------------------------------
     if (window.innerWidth > 1024) {
         const cursorDot  = document.querySelector('.cursor-dot');
@@ -89,19 +92,32 @@ function initApp() {
         let mouseX = 0, mouseY = 0;
         let ringX  = 0, ringY  = 0;
 
-        // Dot follows instantly (no lerp needed — feels snappier)
+        // Shared object for GSAP to animate state properties (width, height, scale)
+        const cursorState = {
+            scale: 1,
+            width: 40,
+            height: 40
+        };
+
+        // Only store coordinates on mousemove for maximum performance (no DOM layout thrashing)
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            gsap.set(cursorDot, { x: mouseX, y: mouseY });
         }, { passive: true });
 
-        // Ring lerps — but only through one ticker per frame
-        gsap.ticker.add(() => {
+        // Update loop on every animation frame for buttery smooth cursor movement
+        function updateCursor() {
             ringX += (mouseX - ringX) * 0.12;
             ringY += (mouseY - ringY) * 0.12;
-            gsap.set(cursorRing, { x: ringX, y: ringY });
-        });
+
+            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+            cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) scale(${cursorState.scale})`;
+            cursorRing.style.width = `${cursorState.width}px`;
+            cursorRing.style.height = `${cursorState.height}px`;
+
+            requestAnimationFrame(updateCursor);
+        }
+        requestAnimationFrame(updateCursor);
 
         // Magnetic + cursor text
         document.querySelectorAll('.magnetic-target').forEach(target => {
@@ -112,15 +128,15 @@ function initApp() {
                 if (text) {
                     document.body.classList.add('cursor-text-active');
                     cursorRing.textContent = text;
-                    gsap.to(cursorRing, { width: 80, height: 80, duration: 0.3 });
+                    gsap.to(cursorState, { width: 80, height: 80, scale: 1, duration: 0.3, overwrite: 'auto' });
                 } else {
-                    gsap.to(cursorRing, { scale, duration: 0.3 });
+                    gsap.to(cursorState, { scale: scale, width: 40, height: 40, duration: 0.3, overwrite: 'auto' });
                 }
             });
             target.addEventListener('mouseleave', () => {
                 document.body.classList.remove('cursor-active', 'cursor-text-active');
                 cursorRing.textContent = '';
-                gsap.to(cursorRing, { width: 40, height: 40, scale: 1, duration: 0.3 });
+                gsap.to(cursorState, { width: 40, height: 40, scale: 1, duration: 0.3, overwrite: 'auto' });
                 gsap.to(target,    { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
             });
             target.addEventListener('mousemove', (e) => {
@@ -577,32 +593,61 @@ function initApp() {
 
     // -----------------------------------------------------------------------
     // 14. CURSOR SPARKLE TRAIL (desktop only)
-    //     Throttled to 1 sparkle per 60ms max, 50% probability per event
+    //     Optimized with an Object Pool to prevent DOM thrashing & GC pauses.
     // -----------------------------------------------------------------------
     if (window.innerWidth > 1024) {
         const sparkleColors = ['#00f0ff', '#b026ff', '#ff2a7a', '#0af', '#fa0'];
+        const SPARKLE_COUNT = 20;
+        const sparklePool = [];
+        let activeSparkleIdx = 0;
         let lastSparkle = 0;
+
+        // Pre-create and style sparkle elements in the pool
+        for (let i = 0; i < SPARKLE_COUNT; i++) {
+            const el = document.createElement('div');
+            el.className = 'cursor-sparkle';
+            el.style.cssText = `position:fixed;pointer-events:none;z-index:9999;border-radius:50%;display:none;will-change:transform,opacity;`;
+            document.body.appendChild(el);
+            sparklePool.push({ el, tween: null });
+        }
+
+        function triggerSparkle(x, y) {
+            const sparkle = sparklePool[activeSparkleIdx];
+            activeSparkleIdx = (activeSparkleIdx + 1) % SPARKLE_COUNT;
+
+            if (sparkle.tween) {
+                sparkle.tween.kill();
+            }
+
+            const sz  = Math.random() * 5 + 3;
+            const col = sparkleColors[Math.floor(Math.random() * sparkleColors.length)];
+            
+            sparkle.el.style.width = `${sz}px`;
+            sparkle.el.style.height = `${sz}px`;
+            sparkle.el.style.background = col;
+            sparkle.el.style.boxShadow = `0 0 8px ${col}`;
+            sparkle.el.style.display = 'block';
+
+            gsap.set(sparkle.el, { x: x, y: y, xPercent: -50, yPercent: -50, scale: 1, opacity: 1 });
+            
+            sparkle.tween = gsap.to(sparkle.el, {
+                x: x + (Math.random() - 0.5) * 60,
+                y: y + (Math.random() - 0.5) * 60 + 15,
+                opacity: 0,
+                scale: 0,
+                duration: 0.6 + Math.random() * 0.3,
+                ease: 'power2.out',
+                onComplete: () => {
+                    sparkle.el.style.display = 'none';
+                }
+            });
+        }
+
         document.addEventListener('mousemove', (e) => {
             const now = Date.now();
             if (now - lastSparkle < 60 || Math.random() > 0.5) return;
             lastSparkle = now;
-
-            const el  = document.createElement('div');
-            const sz  = Math.random() * 5 + 3;
-            const col = sparkleColors[Math.floor(Math.random() * sparkleColors.length)];
-            el.className = 'cursor-sparkle';
-            el.style.cssText = `width:${sz}px;height:${sz}px;background:${col};box-shadow:0 0 8px ${col}`;
-            document.body.appendChild(el);
-
-            gsap.set(el, { x: e.clientX, y: e.clientY, xPercent: -50, yPercent: -50 });
-            gsap.to(el, {
-                x: e.clientX + (Math.random() - 0.5) * 60,
-                y: e.clientY + (Math.random() - 0.5) * 60 + 15,
-                opacity: 0, scale: 0,
-                duration: 0.6 + Math.random() * 0.3,
-                ease: 'power2.out',
-                onComplete: () => el.remove(),
-            });
+            triggerSparkle(e.clientX, e.clientY);
         }, { passive: true });
     }
 
@@ -644,8 +689,10 @@ function initApp() {
     });
 
     // -----------------------------------------------------------------------
-    // Final refresh
+    // Final refresh - deferred to avoid call stack limits inside GSAP callbacks
     // -----------------------------------------------------------------------
-    ScrollTrigger.refresh();
+    requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+    });
 }
 
