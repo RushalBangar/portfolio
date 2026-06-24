@@ -97,37 +97,56 @@ img { max-width: 100%; display: block; }
    ========================================================================== */
 .cursor-dot, .cursor-ring {
     position: fixed; top: 0; left: 0;
-    transform: translate(-50%, -50%);
     pointer-events: none; z-index: 10000;
     will-change: transform;
 }
 
 .cursor-dot {
-    width: 8px; height: 8px;
-    background: var(--text-color); border-radius: 50%;
-    mix-blend-mode: difference;
+    width: 6px; height: 6px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--primary), 0 0 15px var(--secondary);
+    /* Set native center offset */
+    margin: -3px 0 0 -3px;
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 .cursor-ring {
-    width: 40px; height: 40px;
-    border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 50%;
-    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                background 0.3s;
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(0, 240, 255, 0.45);
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.1), inset 0 0 10px rgba(0, 240, 255, 0.05);
     display: flex; justify-content: center; align-items: center;
-    font-family: var(--font-heading); font-size: 10px; font-weight: 600;
-    letter-spacing: 2px; color: transparent;
+    font-family: var(--font-heading); font-size: 9px; font-weight: 800;
+    letter-spacing: 1px; color: transparent;
+    /* Set native center offset */
+    margin: -18px 0 0 -18px;
+    transition: border-color 0.3s, background-color 0.3s, color 0.3s;
 }
 
+/* Hover state on magnetic / active targets */
 body.cursor-active .cursor-ring {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(4px);
-    border-color: var(--text-color);
+    border-color: rgba(176, 38, 255, 0.85); /* Secondary purple */
+    background: rgba(176, 38, 255, 0.06);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    box-shadow: 0 0 20px rgba(176, 38, 255, 0.3), inset 0 0 12px rgba(176, 38, 255, 0.15);
 }
 
+body.cursor-active .cursor-dot {
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+}
+
+/* Cursor text hover state (e.g. view details, explore) */
 body.cursor-text-active .cursor-ring {
-    color: var(--bg-color); background: var(--text-color);
-    mix-blend-mode: normal; border: none;
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(3, 3, 5, 0.85), rgba(15, 15, 20, 0.95));
+    border: 1px solid var(--primary);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    box-shadow: 0 10px 30px rgba(0, 240, 255, 0.25), 0 0 15px rgba(0, 240, 255, 0.15);
 }
 
 /* ==========================================================================

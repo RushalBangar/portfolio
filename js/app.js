@@ -92,11 +92,12 @@ function initApp() {
         let mouseX = 0, mouseY = 0;
         let ringX  = 0, ringY  = 0;
 
-        // Shared object for GSAP to animate state properties (width, height, scale)
+        // Shared object for GSAP to animate state properties (width, height, scale, dotScale)
         const cursorState = {
             scale: 1,
-            width: 40,
-            height: 40
+            dotScale: 1,
+            width: 36,
+            height: 36
         };
 
         // Only store coordinates on mousemove for maximum performance (no DOM layout thrashing)
@@ -110,7 +111,7 @@ function initApp() {
             ringX += (mouseX - ringX) * 0.12;
             ringY += (mouseY - ringY) * 0.12;
 
-            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+            cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) scale(${cursorState.dotScale})`;
             cursorRing.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) scale(${cursorState.scale})`;
             cursorRing.style.width = `${cursorState.width}px`;
             cursorRing.style.height = `${cursorState.height}px`;
@@ -128,15 +129,15 @@ function initApp() {
                 if (text) {
                     document.body.classList.add('cursor-text-active');
                     cursorRing.textContent = text;
-                    gsap.to(cursorState, { width: 80, height: 80, scale: 1, duration: 0.3, overwrite: 'auto' });
+                    gsap.to(cursorState, { width: 80, height: 80, scale: 1, dotScale: 0, duration: 0.3, overwrite: 'auto' });
                 } else {
-                    gsap.to(cursorState, { scale: scale, width: 40, height: 40, duration: 0.3, overwrite: 'auto' });
+                    gsap.to(cursorState, { scale: scale, dotScale: 1.6, width: 36, height: 36, duration: 0.3, overwrite: 'auto' });
                 }
             });
             target.addEventListener('mouseleave', () => {
                 document.body.classList.remove('cursor-active', 'cursor-text-active');
                 cursorRing.textContent = '';
-                gsap.to(cursorState, { width: 40, height: 40, scale: 1, duration: 0.3, overwrite: 'auto' });
+                gsap.to(cursorState, { width: 36, height: 36, scale: 1, dotScale: 1, duration: 0.3, overwrite: 'auto' });
                 gsap.to(target,    { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
             });
             target.addEventListener('mousemove', (e) => {
