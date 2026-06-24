@@ -394,25 +394,31 @@ function initApp() {
 
     // -----------------------------------------------------------------------
     // 5. 3D TILT (desktop only)
-    //    Use quickTo for minimal overhead per mousemove
     // -----------------------------------------------------------------------
     if (window.innerWidth > 1024) {
         document.querySelectorAll('.tilt-card').forEach(card => {
-            const setRX = gsap.quickTo(card, 'rotateX', { duration: 0.45, ease: 'power2.out' });
-            const setRY = gsap.quickTo(card, 'rotateY', { duration: 0.45, ease: 'power2.out' });
-
             card.addEventListener('mousemove', (e) => {
                 const r  = card.getBoundingClientRect();
                 const rx = ((e.clientY - r.top  - r.height / 2) / (r.height / 2)) * -7;
                 const ry = ((e.clientX - r.left - r.width  / 2) / (r.width  / 2)) *  7;
-                gsap.set(card, { transformPerspective: 900 });
-                setRX(rx);
-                setRY(ry);
+                gsap.to(card, {
+                    transformPerspective: 900,
+                    rotationX: rx,
+                    rotationY: ry,
+                    duration: 0.45,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
             }, { passive: true });
 
             card.addEventListener('mouseleave', () => {
-                setRX(0);
-                setRY(0);
+                gsap.to(card, {
+                    rotationX: 0,
+                    rotationY: 0,
+                    duration: 0.45,
+                    ease: 'power2.out',
+                    overwrite: 'auto'
+                });
             });
         });
     }
@@ -565,7 +571,7 @@ function initApp() {
             y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
             stagger: 0.08,
             scrollTrigger: { trigger: '.credentials-track', start: 'top 82%', toggleActions: 'play reverse play reverse' },
-            clearProps: 'transform'
+            clearProps: 'y,opacity'
         }
     );
 
