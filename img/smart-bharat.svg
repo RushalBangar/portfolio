@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#05070e"/>
+      <stop offset="50%" stop-color="#0a0d1a"/>
+      <stop offset="100%" stop-color="#030408"/>
+    </linearGradient>
+    <linearGradient id="cyan-p" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#0088ff"/>
+    </linearGradient>
+    <linearGradient id="gold-g" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#fbbc05"/>
+      <stop offset="100%" stop-color="#ff7b00"/>
+    </linearGradient>
+    <linearGradient id="card-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.06)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.01)"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,240,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#grid)"/>
+
+  <!-- Ambient Glow Orbs -->
+  <circle cx="200" cy="180" r="180" fill="rgba(0,240,255,0.08)" filter="url(#glow)"/>
+  <circle cx="1050" cy="500" r="220" fill="rgba(251,188,5,0.06)" filter="url(#glow)"/>
+
+  <!-- Top App Bar -->
+  <rect x="60" y="45" width="1080" height="56" rx="14" fill="rgba(15,20,32,0.85)" stroke="rgba(0,240,255,0.25)" stroke-width="1"/>
+  <circle cx="95" cy="73" r="6" fill="#ff5f56"/>
+  <circle cx="115" cy="73" r="6" fill="#ffbd2e"/>
+  <circle cx="135" cy="73" r="6" fill="#27c93f"/>
+  
+  <text x="175" y="79" fill="#00f0ff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="16" font-weight="700" letter-spacing="2">SMART-BHARAT</text>
+  <text x="325" y="78" fill="rgba(255,255,255,0.4)" font-family="'Space Grotesk', system-ui, sans-serif" font-size="13" letter-spacing="1">// GENAI CIVIC INTELLIGENCE SUITE</text>
+  
+  <rect x="870" y="58" width="140" height="30" rx="15" fill="rgba(0,240,255,0.12)" stroke="rgba(0,240,255,0.4)" stroke-width="1"/>
+  <circle cx="888" cy="73" r="4" fill="#00f0ff"/>
+  <text x="900" y="78" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">AI AGENT ONLINE</text>
+
+  <!-- Left Column: Citizen Telemetry & Public Grievance Tracking -->
+  <rect x="60" y="125" width="340" height="495" rx="16" fill="url(#card-grad)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="90" y="165" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="16" font-weight="700">Civic Redressal Feed</text>
+  <text x="90" y="185" fill="rgba(255,255,255,0.45)" font-family="system-ui, sans-serif" font-size="12">Geo-Tagged &amp; AI Verified</text>
+
+  <!-- Feed Item 1 -->
+  <rect x="85" y="210" width="290" height="84" rx="10" fill="rgba(0,0,0,0.45)" stroke="rgba(0,240,255,0.2)" stroke-width="1"/>
+  <text x="105" y="235" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="11" font-weight="700">INFRASTRUCTURE #4912</text>
+  <text x="105" y="255" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13">Road Cavity &amp; Drainage</text>
+  <rect x="105" y="267" width="70" height="18" rx="9" fill="rgba(39,201,63,0.15)"/>
+  <text x="114" y="280" fill="#27c93f" font-family="system-ui, sans-serif" font-size="10" font-weight="700">AUTO-FILED</text>
+  <text x="290" y="280" fill="rgba(255,255,255,0.4)" font-family="system-ui, sans-serif" font-size="11">Nashik Central</text>
+
+  <!-- Feed Item 2 -->
+  <rect x="85" y="310" width="290" height="84" rx="10" fill="rgba(0,0,0,0.45)" stroke="rgba(251,188,5,0.2)" stroke-width="1"/>
+  <text x="105" y="335" fill="#fbbc05" font-family="system-ui, sans-serif" font-size="11" font-weight="700">UTILITY WATER #8821</text>
+  <text x="105" y="355" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13">Pipeline Pressure Drop</text>
+  <rect x="105" y="367" width="85" height="18" rx="9" fill="rgba(251,188,5,0.15)"/>
+  <text x="114" y="380" fill="#fbbc05" font-family="system-ui, sans-serif" font-size="10" font-weight="700">ANALYZING</text>
+  <text x="315" y="380" fill="rgba(255,255,255,0.4)" font-family="system-ui, sans-serif" font-size="11">Zone 4</text>
+
+  <!-- Feed Item 3 -->
+  <rect x="85" y="410" width="290" height="84" rx="10" fill="rgba(0,0,0,0.45)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="105" y="435" fill="#a0aec0" font-family="system-ui, sans-serif" font-size="11" font-weight="700">SANITATION #2041</text>
+  <text x="105" y="455" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13">Municipal Waste Route</text>
+  <rect x="105" y="467" width="80" height="18" rx="9" fill="rgba(0,240,255,0.15)"/>
+  <text x="114" y="480" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="10" font-weight="700">DISPATCHED</text>
+  <text x="300" y="480" fill="rgba(255,255,255,0.4)" font-family="system-ui, sans-serif" font-size="11">Gangapur</text>
+
+  <rect x="85" y="520" width="290" height="75" rx="12" fill="rgba(0,240,255,0.06)" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
+  <text x="105" y="548" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="600">Citizen Impact Metric</text>
+  <text x="105" y="572" fill="#00f0ff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="22" font-weight="800">98.4% Resolution Rate</text>
+
+  <!-- Center Column: GenAI Chat Assistant -->
+  <rect x="425" y="125" width="410" height="495" rx="16" fill="url(#card-grad)" stroke="rgba(0,240,255,0.25)" stroke-width="1"/>
+  <text x="455" y="165" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="16" font-weight="700">GenAI Citizen Companion</text>
+  <text x="455" y="185" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="12">Natural Language Policy &amp; Scheme Resolver</text>
+
+  <!-- User Bubble -->
+  <rect x="525" y="215" width="280" height="52" rx="12" fill="rgba(0,240,255,0.15)" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
+  <text x="540" y="238" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12">How do I register for solar subsidy in</text>
+  <text x="540" y="254" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12">Maharashtra with rooftop under 3kW?</text>
+
+  <!-- AI Response Bubble -->
+  <rect x="455" y="285" width="350" height="150" rx="12" fill="rgba(10,18,30,0.85)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  <circle cx="475" cy="307" r="8" fill="#00f0ff"/>
+  <text x="492" y="312" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="11" font-weight="700">SMART-BHARAT ASSISTANT</text>
+  <text x="475" y="338" fill="rgba(255,255,255,0.85)" font-family="system-ui, sans-serif" font-size="12">Under PM Surya Ghar Muft Bijli Yojana:</text>
+  <text x="475" y="358" fill="#fbbc05" font-family="system-ui, sans-serif" font-size="12" font-weight="600">&#x2022; Up to 2kW: &#x20B9;60,000 direct subsidy</text>
+  <text x="475" y="378" fill="#fbbc05" font-family="system-ui, sans-serif" font-size="12" font-weight="600">&#x2022; 3kW: &#x20B9;78,000 maximum assistance</text>
+  <text x="475" y="400" fill="rgba(255,255,255,0.7)" font-family="system-ui, sans-serif" font-size="11">I have prepared your pre-filled DISCOM portal</text>
+  <text x="475" y="418" fill="rgba(255,255,255,0.7)" font-family="system-ui, sans-serif" font-size="11">application package ready for one-tap submission.</text>
+
+  <!-- Interactive Action Chips -->
+  <rect x="455" y="455" width="165" height="34" rx="17" fill="rgba(0,240,255,0.12)" stroke="rgba(0,240,255,0.4)" stroke-width="1"/>
+  <text x="475" y="476" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="11" font-weight="600">&#x2713; Auto-Fill Application</text>
+
+  <rect x="635" y="455" width="170" height="34" rx="17" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="655" y="476" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="600">Review Guidelines</text>
+
+  <!-- Query Input Box -->
+  <rect x="455" y="540" width="350" height="55" rx="14" fill="rgba(0,0,0,0.6)" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
+  <text x="475" y="572" fill="rgba(255,255,255,0.35)" font-family="system-ui, sans-serif" font-size="13">Ask about any scheme, license, or grievance...</text>
+  <circle cx="775" cy="567" r="16" fill="url(#cyan-p)"/>
+  <polygon points="772,561 781,567 772,573" fill="#000000"/>
+
+  <!-- Right Column: National Scheme Directory -->
+  <rect x="860" y="125" width="280" height="495" rx="16" fill="url(#card-grad)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="885" y="165" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="16" font-weight="700">Scheme Matching</text>
+  <text x="885" y="185" fill="#fbbc05" font-family="system-ui, sans-serif" font-size="12">Personalized Profile Match</text>
+
+  <rect x="885" y="215" width="230" height="110" rx="12" fill="rgba(0,0,0,0.5)" stroke="rgba(0,240,255,0.25)" stroke-width="1"/>
+  <text x="900" y="242" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="700">PM Awas Yojana</text>
+  <text x="900" y="262" fill="rgba(255,255,255,0.5)" font-family="system-ui, sans-serif" font-size="11">Affordable Housing Credit</text>
+  <text x="900" y="290" fill="#00f0ff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="18" font-weight="800">96% Match</text>
+  <rect x="900" y="300" width="200" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+  <rect x="900" y="300" width="192" height="5" rx="2.5" fill="#00f0ff"/>
+
+  <rect x="885" y="340" width="230" height="110" rx="12" fill="rgba(0,0,0,0.5)" stroke="rgba(251,188,5,0.25)" stroke-width="1"/>
+  <text x="900" y="367" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="700">Ayushman Bharat</text>
+  <text x="900" y="387" fill="rgba(255,255,255,0.5)" font-family="system-ui, sans-serif" font-size="11">PM-JAY Health Coverage</text>
+  <text x="900" y="415" fill="#fbbc05" font-family="'Space Grotesk', system-ui, sans-serif" font-size="18" font-weight="800">91% Match</text>
+  <rect x="900" y="425" width="200" height="5" rx="2.5" fill="rgba(255,255,255,0.1)"/>
+  <rect x="900" y="425" width="182" height="5" rx="2.5" fill="#fbbc05"/>
+
+  <rect x="885" y="465" width="230" height="130" rx="12" fill="rgba(0,240,255,0.06)" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
+  <text x="900" y="495" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="700">Multilingual Voice Mode</text>
+  <text x="900" y="515" fill="rgba(255,255,255,0.55)" font-family="system-ui, sans-serif" font-size="11">Marathi &#x2022; Hindi &#x2022; English</text>
+  <rect x="900" y="535" width="200" height="36" rx="18" fill="url(#cyan-p)"/>
+  <text x="940" y="558" fill="#000000" font-family="system-ui, sans-serif" font-size="12" font-weight="700">&#x1F399; Voice Assistance</text>
+</svg>

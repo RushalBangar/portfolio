@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="mc-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#040912"/>
+      <stop offset="50%" stop-color="#081422"/>
+      <stop offset="100%" stop-color="#02060b"/>
+    </linearGradient>
+    <linearGradient id="blue-cyan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#0077ff"/>
+    </linearGradient>
+    <filter id="mc-glow">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feComposite in="SourceGraphic" in2="b" operator="over"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#mc-bg)"/>
+
+  <!-- Radar sweep circle -->
+  <circle cx="580" cy="360" r="240" fill="none" stroke="rgba(0,240,255,0.1)" stroke-width="1"/>
+  <circle cx="580" cy="360" r="160" fill="none" stroke="rgba(0,240,255,0.15)" stroke-width="1"/>
+  <circle cx="580" cy="360" r="80" fill="none" stroke="rgba(0,240,255,0.2)" stroke-width="1"/>
+  <line x1="580" y1="120" x2="580" y2="600" stroke="rgba(0,240,255,0.08)" stroke-width="1"/>
+  <line x1="340" y1="360" x2="820" y2="360" stroke="rgba(0,240,255,0.08)" stroke-width="1"/>
+
+  <!-- Top App Header -->
+  <rect x="60" y="45" width="1080" height="56" rx="14" fill="rgba(10,22,36,0.85)" stroke="rgba(0,240,255,0.25)" stroke-width="1"/>
+  <circle cx="95" cy="73" r="6" fill="#ff5f56"/>
+  <circle cx="115" cy="73" r="6" fill="#ffbd2e"/>
+  <circle cx="135" cy="73" r="6" fill="#27c93f"/>
+
+  <text x="175" y="79" fill="#00f0ff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="16" font-weight="700" letter-spacing="2">MEDCONNECT</text>
+  <text x="325" y="78" fill="rgba(255,255,255,0.4)" font-family="'Space Grotesk', system-ui, sans-serif" font-size="13" letter-spacing="1">// REAL-TIME LOCAL PHARMACEUTICAL RADAR</text>
+
+  <rect x="910" y="58" width="200" height="30" rx="15" fill="rgba(0,240,255,0.12)" stroke="rgba(0,240,255,0.4)" stroke-width="1"/>
+  <circle cx="928" cy="73" r="4" fill="#00f0ff"/>
+  <text x="942" y="78" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">INVENTORY SYNC ACTIVE</text>
+
+  <!-- Left: Real-Time Drug Search & Filter -->
+  <rect x="60" y="125" width="350" height="495" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="90" y="165" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="16" font-weight="700">Live Inventory Finder</text>
+  <text x="90" y="185" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="12">Verified Emergency Stock Within 5km</text>
+
+  <rect x="90" y="215" width="290" height="50" rx="12" fill="rgba(0,0,0,0.6)" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
+  <text x="115" y="246" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="13" font-weight="600">Human Insulatard 40IU/ml</text>
+
+  <!-- Pharmacy Result 1 -->
+  <rect x="90" y="280" width="290" height="95" rx="12" fill="rgba(0,240,255,0.05)" stroke="rgba(0,240,255,0.25)" stroke-width="1"/>
+  <text x="110" y="308" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="14" font-weight="700">Apollo Pharmacy 24x7</text>
+  <text x="110" y="328" fill="rgba(255,255,255,0.5)" font-family="system-ui, sans-serif" font-size="11">College Road, Nashik &#x2022; 1.2 km</text>
+  <rect x="110" y="342" width="75" height="20" rx="10" fill="rgba(39,201,63,0.18)"/>
+  <text x="120" y="356" fill="#27c93f" font-family="system-ui, sans-serif" font-size="10" font-weight="700">8 VIALS LEFT</text>
+  <text x="290" y="356" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="11" font-weight="600">Navigate &#x2192;</text>
+
+  <!-- Pharmacy Result 2 -->
+  <rect x="90" y="390" width="290" height="95" rx="12" fill="rgba(0,0,0,0.45)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="110" y="418" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="14" font-weight="700">MedPlus Healthcare</text>
+  <text x="110" y="438" fill="rgba(255,255,255,0.5)" font-family="system-ui, sans-serif" font-size="11">MG Road Branch &#x2022; 2.4 km</text>
+  <rect x="110" y="452" width="85" height="20" rx="10" fill="rgba(39,201,63,0.18)"/>
+  <text x="120" y="466" fill="#27c93f" font-family="system-ui, sans-serif" font-size="10" font-weight="700">14 VIALS LEFT</text>
+  <text x="290" y="466" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="11" font-weight="600">Navigate &#x2192;</text>
+
+  <!-- Pharmacy Result 3 -->
+  <rect x="90" y="500" width="290" height="95" rx="12" fill="rgba(0,0,0,0.45)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="110" y="528" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="14" font-weight="700">Wellness Forever</text>
+  <text x="110" y="548" fill="rgba(255,255,255,0.5)" font-family="system-ui, sans-serif" font-size="11">Canada Corner &#x2022; 3.8 km</text>
+  <rect x="110" y="562" width="75" height="20" rx="10" fill="rgba(255,189,46,0.18)"/>
+  <text x="120" y="576" fill="#ffbd2e" font-family="system-ui, sans-serif" font-size="10" font-weight="700">LOW STOCK (2)</text>
+
+  <!-- Center & Right: Geospatial Radar & Telemetry -->
+  <rect x="435" y="125" width="705" height="495" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(0,240,255,0.2)" stroke-width="1"/>
+  <text x="465" y="165" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="16" font-weight="700">Spatial Proximity Radar</text>
+  <text x="465" y="185" fill="rgba(255,255,255,0.45)" font-family="system-ui, sans-serif" font-size="12">Live API Dispatch with Real-Time Stock Ping</text>
+
+  <!-- Map Pins with live pulses -->
+  <circle cx="680" cy="320" r="12" fill="#00f0ff" opacity="0.3"/>
+  <circle cx="680" cy="320" r="6" fill="#00f0ff"/>
+  <text x="698" y="325" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Apollo (8 in stock)</text>
+
+  <circle cx="520" cy="400" r="12" fill="#00e676" opacity="0.3"/>
+  <circle cx="520" cy="400" r="6" fill="#00e676"/>
+  <text x="400" y="405" fill="#00e676" font-family="system-ui, sans-serif" font-size="11" font-weight="700">MedPlus (14)</text>
+
+  <circle cx="760" cy="430" r="12" fill="#ffbd2e" opacity="0.3"/>
+  <circle cx="760" cy="430" r="6" fill="#ffbd2e"/>
+  <text x="778" y="435" fill="#ffbd2e" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Wellness (2)</text>
+
+  <circle cx="580" cy="360" r="8" fill="#ff2a7a"/>
+  <circle cx="580" cy="360" r="16" fill="none" stroke="#ff2a7a" stroke-width="1.5"/>
+  <text x="545" y="390" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="800">YOUR LOCATION</text>
+
+  <!-- Stats Strip at bottom -->
+  <rect x="465" y="525" width="200" height="70" rx="12" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="485" y="552" fill="rgba(255,255,255,0.5)" font-family="system-ui, sans-serif" font-size="11">Active Pharmacies</text>
+  <text x="485" y="578" fill="#00f0ff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="22" font-weight="800">42 Online</text>
+
+  <rect x="685" y="525" width="200" height="70" rx="12" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="705" y="552" fill="rgba(255,255,255,0.5)" font-family="system-ui, sans-serif" font-size="11">Avg Dispatch Time</text>
+  <text x="705" y="578" fill="#00e676" font-family="'Space Grotesk', system-ui, sans-serif" font-size="22" font-weight="800">14 Mins</text>
+
+  <rect x="905" y="525" width="205" height="70" rx="12" fill="rgba(0,240,255,0.08)" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
+  <text x="925" y="552" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="11" font-weight="700">&#x1F6A8; SOS Emergency Mode</text>
+  <text x="925" y="578" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Broadcast Request</text>
+</svg>

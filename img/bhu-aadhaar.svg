@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ba-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#030814"/>
+      <stop offset="50%" stop-color="#081024"/>
+      <stop offset="100%" stop-color="#02040a"/>
+    </linearGradient>
+    <linearGradient id="purple-cyan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00f0ff"/>
+      <stop offset="100%" stop-color="#b026ff"/>
+    </linearGradient>
+    <filter id="ba-glow">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feComposite in="SourceGraphic" in2="b" operator="over"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#ba-bg)"/>
+
+  <!-- Top App Header -->
+  <rect x="60" y="45" width="1080" height="56" rx="14" fill="rgba(12,20,40,0.85)" stroke="rgba(0,240,255,0.25)" stroke-width="1"/>
+  <circle cx="95" cy="73" r="6" fill="#ff5f56"/>
+  <circle cx="115" cy="73" r="6" fill="#ffbd2e"/>
+  <circle cx="135" cy="73" r="6" fill="#27c93f"/>
+
+  <text x="175" y="79" fill="#00f0ff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="16" font-weight="700" letter-spacing="2">BHU-AADHAAR-3D</text>
+  <text x="365" y="78" fill="rgba(255,255,255,0.4)" font-family="'Space Grotesk', system-ui, sans-serif" font-size="13" letter-spacing="1">// 3D ULPIN &amp; VERTICAL PROPERTY CADASTRAL MAPPING</text>
+
+  <rect x="910" y="58" width="200" height="30" rx="15" fill="rgba(176,38,255,0.15)" stroke="rgba(176,38,255,0.4)" stroke-width="1"/>
+  <circle cx="928" cy="73" r="4" fill="#b026ff"/>
+  <text x="942" y="78" fill="#b026ff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">3D WEBGL ENGINE ACTIVE</text>
+
+  <!-- Left: 3D Coordinate & Parcel Info Panel -->
+  <rect x="60" y="125" width="360" height="495" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(0,240,255,0.2)" stroke-width="1"/>
+  <text x="90" y="165" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="16" font-weight="700">Parcel Registry (ULPIN)</text>
+  <text x="90" y="185" fill="#00f0ff" font-family="system-ui, sans-serif" font-size="12">Unique 14-Digit Land Parcel Identity</text>
+
+  <rect x="90" y="215" width="300" height="75" rx="12" fill="rgba(0,240,255,0.06)" stroke="rgba(0,240,255,0.3)" stroke-width="1"/>
+  <text x="110" y="242" fill="rgba(255,255,255,0.5)" font-family="system-ui, sans-serif" font-size="11">GEN-4 STANDARDIZED ULPIN</text>
+  <text x="110" y="268" fill="#00f0ff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="17" font-weight="800">MH-NSK-2026-9812-4X</text>
+
+  <!-- Vertical Layers -->
+  <rect x="90" y="305" width="300" height="70" rx="12" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="110" y="332" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="13" font-weight="700">Vertical Parcel Unit: Floor 14</text>
+  <text x="110" y="354" fill="rgba(255,255,255,0.55)" font-family="system-ui, sans-serif" font-size="11">Elevation: +46.5m above datum &#x2022; Vol: 1,420m&#179;</text>
+
+  <rect x="90" y="390" width="300" height="70" rx="12" fill="rgba(0,0,0,0.5)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  <text x="110" y="417" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="13" font-weight="700">Sub-Surface Rights (Basement -2)</text>
+  <text x="110" y="439" fill="rgba(255,255,255,0.55)" font-family="system-ui, sans-serif" font-size="11">Depth: -7.2m &#x2022; Geothermal &amp; Parking Unit</text>
+
+  <!-- Spatial GIS Coordinates -->
+  <rect x="90" y="475" width="300" height="120" rx="12" fill="rgba(176,38,255,0.06)" stroke="rgba(176,38,255,0.3)" stroke-width="1"/>
+  <text x="110" y="505" fill="#b026ff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="13" font-weight="700">Spatial Bounding Coordinates</text>
+  <text x="110" y="530" fill="rgba(255,255,255,0.7)" font-family="system-ui, sans-serif" font-size="11">Lat: 19.9975&#176; N &#x2022; Lon: 73.7898&#176; E</text>
+  <text x="110" y="550" fill="rgba(255,255,255,0.7)" font-family="system-ui, sans-serif" font-size="11">Polygon Vertices: 12-point GIS GeoJSON</text>
+  <text x="110" y="572" fill="#00e676" font-family="system-ui, sans-serif" font-size="11" font-weight="700">&#x2713; Land Revenue Dept Certified</text>
+
+  <!-- Center & Right: Isometric 3D Wireframe Mesh -->
+  <rect x="445" y="125" width="695" height="495" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(176,38,255,0.2)" stroke-width="1"/>
+  <text x="475" y="165" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="16" font-weight="700">3D Spatial Extrusion Viewport</text>
+  <text x="475" y="185" fill="rgba(255,255,255,0.45)" font-family="system-ui, sans-serif" font-size="12">Interactive WebGL Volumetric Parcel Rendering</text>
+
+  <!-- 3D Isometric Buildings Wireframe Graphic -->
+  <g transform="translate(680, 240)">
+    <!-- Base grid -->
+    <polygon points="0,-60 180,30 0,120 -180,30" fill="rgba(0,240,255,0.05)" stroke="rgba(0,240,255,0.25)" stroke-width="1.5"/>
+    <line x1="0" y1="-60" x2="0" y2="120" stroke="rgba(0,240,255,0.15)"/>
+    <line x1="-180" y1="30" x2="180" y2="30" stroke="rgba(0,240,255,0.15)"/>
+
+    <!-- Building Tower 1 (Vertical Property) -->
+    <!-- Lower Level -->
+    <polygon points="-70,0 -10,-30 -10,60 -70,90" fill="rgba(176,38,255,0.25)" stroke="#b026ff" stroke-width="1.5"/>
+    <polygon points="-10,-30 50,0 50,90 -10,60" fill="rgba(176,38,255,0.15)" stroke="#b026ff" stroke-width="1.5"/>
+    <polygon points="-70,0 -10,-30 50,0 -10,30" fill="rgba(0,240,255,0.3)" stroke="#00f0ff" stroke-width="1.5"/>
+
+    <!-- Upper Level (Highlighted Selected Parcel) -->
+    <polygon points="-70,-80 -10,-110 -10,-20 -70,10" fill="rgba(0,240,255,0.35)" stroke="#00f0ff" stroke-width="2"/>
+    <polygon points="-10,-110 50,-80 50,10 -10,-20" fill="rgba(0,240,255,0.2)" stroke="#00f0ff" stroke-width="2"/>
+    <polygon points="-70,-80 -10,-110 50,-80 -10,-50" fill="rgba(0,240,255,0.5)" stroke="#00f0ff" stroke-width="2"/>
+
+    <!-- Pin on active parcel -->
+    <circle cx="-10" cy="-80" r="6" fill="#ff2a7a"/>
+    <circle cx="-10" cy="-80" r="14" fill="none" stroke="#ff2a7a" stroke-width="1.5"/>
+
+    <!-- Building Tower 2 (Background) -->
+    <polygon points="60,-40 120,-70 120,40 60,70" fill="rgba(0,100,255,0.15)" stroke="rgba(0,180,255,0.4)" stroke-width="1"/>
+    <polygon points="120,-70 160,-50 160,60 120,40" fill="rgba(0,100,255,0.1)" stroke="rgba(0,180,255,0.4)" stroke-width="1"/>
+  </g>
+
+  <!-- Control Overlay -->
+  <rect x="475" y="535" width="220" height="50" rx="12" fill="url(#purple-cyan)"/>
+  <text x="515" y="566" fill="#000000" font-family="'Space Grotesk', system-ui, sans-serif" font-size="13" font-weight="700">&#x1F5FA; Generate 3D Land Title</text>
+
+  <rect x="715" y="535" width="200" height="50" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="745" y="566" fill="#ffffff" font-family="'Space Grotesk', system-ui, sans-serif" font-size="13" font-weight="600">Export CAD/GeoJSON</text>
+</svg>

@@ -1,0 +1,8 @@
+{
+  "name": "Rushal Bangar Portfolio",
+  "description": "Portfolio of Rushal Bangar, aspiring Data Scientist and AI&DS student, showcasing machine learning systems, projects, and credentials.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
