@@ -64,10 +64,17 @@
             <a href="Bangar_Rushal.Resume.pdf" target="_blank" rel="noopener noreferrer" class="nav-link nav-resume magnetic-target" data-cursor-scale="1.5">Resume</a>
             <a href="#contact" class="nav-link magnetic-target nav-cta" data-cursor-scale="1.5">Initiate</a>
         </div>
-        <!-- Mobile Menu Toggle -->
-        <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-            <div class="hamburger"></div>
-        </button>
+        <div class="nav-controls">
+            <!-- Command Palette trigger -->
+            <button class="nav-ctrl-btn cmd-trigger magnetic-target" aria-label="Command Palette (Ctrl+K)" title="Command Palette (Ctrl+K / ⌘K)">
+                <span class="cmd-icon-symbol">&gt;_</span>
+                <span class="cmd-kbd-badge">⌘K</span>
+            </button>
+            <!-- Mobile Menu Toggle -->
+            <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <div class="hamburger"></div>
+            </button>
+        </div>
     </nav>
 
     <!-- Smooth Scroll Wrapper -->
@@ -257,7 +264,7 @@
                     <div class="projects-grid">
                         
                         <!-- Project 1: VivaVox (AI Interview & Viva Evaluator) -->
-                        <div class="project-row">
+                        <div class="project-row" data-project-id="vivavox">
                             <div class="project-info parallax-layer" data-speed="0.9">
                                 <span class="project-number">01</span>
                                 <h3 class="project-name">VivaVox</h3>
@@ -265,19 +272,25 @@
                                 <div class="project-tech">
                                     <span>TypeScript</span><span>React</span><span>Multimodal AI</span><span>WebRTC</span><span>Tailwind</span>
                                 </div>
-                                <a href="https://github.com/RushalBangar/VivaVox" target="_blank" rel="noopener noreferrer" class="link-arrow magnetic-target" data-cursor-scale="2">
-                                    View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                </a>
+                                <div class="project-actions">
+                                    <button class="btn-blueprint magnetic-target" data-blueprint-id="vivavox" data-cursor-text="BLUEPRINT">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                                        <span>System Blueprint</span>
+                                    </button>
+                                    <a href="https://github.com/RushalBangar/VivaVox" target="_blank" rel="noopener noreferrer" class="link-arrow magnetic-target" data-cursor-scale="1.8">
+                                        GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    </a>
+                                </div>
                             </div>
                             <div class="project-visual parallax-layer" data-speed="1.1">
-                                <div class="glass-card project-image-card tilt-card interactive-card magnetic-target" data-cursor-text="EXPLORE">
+                                <div class="glass-card project-image-card tilt-card interactive-card magnetic-target" data-blueprint-id="vivavox" data-cursor-text="EXPLORE">
                                     <img src="img/vivavox.png" alt="VivaVox AI Mock Interview Evaluator" class="project-image" loading="lazy">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Project 2: Smart-Bharat (GenAI Civic Platform) -->
-                        <div class="project-row reverse">
+                        <div class="project-row reverse" data-project-id="smart-bharat">
                             <div class="project-info parallax-layer" data-speed="0.9">
                                 <span class="project-number">02</span>
                                 <h3 class="project-name">Smart-Bharat</h3>
@@ -285,19 +298,25 @@
                                 <div class="project-tech">
                                     <span>GenAI</span><span>JavaScript</span><span>Civic Tech</span><span>NLP</span><span>Express</span>
                                 </div>
-                                <a href="https://github.com/RushalBangar/Smart-Bharat" target="_blank" rel="noopener noreferrer" class="link-arrow magnetic-target" data-cursor-scale="2">
-                                    View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                </a>
+                                <div class="project-actions">
+                                    <button class="btn-blueprint magnetic-target" data-blueprint-id="smart-bharat" data-cursor-text="BLUEPRINT">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                                        <span>System Blueprint</span>
+                                    </button>
+                                    <a href="https://github.com/RushalBangar/Smart-Bharat" target="_blank" rel="noopener noreferrer" class="link-arrow magnetic-target" data-cursor-scale="1.8">
+                                        GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    </a>
+                                </div>
                             </div>
                             <div class="project-visual parallax-layer" data-speed="1.1">
-                                <div class="glass-card project-image-card tilt-card interactive-card magnetic-target" data-cursor-text="EXPLORE">
+                                <div class="glass-card project-image-card tilt-card interactive-card magnetic-target" data-blueprint-id="smart-bharat" data-cursor-text="EXPLORE">
                                     <img src="img/smart-bharat.svg" alt="Smart-Bharat GenAI Civic Platform" class="project-image" loading="lazy">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Project 3: Grahak-Kavach (AI Food Safety & Legal Metrology) -->
-                        <div class="project-row">
+                        <div class="project-row" data-project-id="grahak-kavach">
                             <div class="project-info parallax-layer" data-speed="0.9">
                                 <span class="project-number">03</span>
                                 <h3 class="project-name">Grahak-Kavach</h3>
@@ -305,19 +324,25 @@
                                 <div class="project-tech">
                                     <span>Computer Vision</span><span>OCR</span><span>AI Safety</span><span>Legal Metrology</span><span>JavaScript</span>
                                 </div>
-                                <a href="https://github.com/RushalBangar/Grahak-Kavach" target="_blank" rel="noopener noreferrer" class="link-arrow magnetic-target" data-cursor-scale="2">
-                                    View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                </a>
+                                <div class="project-actions">
+                                    <button class="btn-blueprint magnetic-target" data-blueprint-id="grahak-kavach" data-cursor-text="BLUEPRINT">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                                        <span>System Blueprint</span>
+                                    </button>
+                                    <a href="https://github.com/RushalBangar/Grahak-Kavach" target="_blank" rel="noopener noreferrer" class="link-arrow magnetic-target" data-cursor-scale="1.8">
+                                        GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    </a>
+                                </div>
                             </div>
                             <div class="project-visual parallax-layer" data-speed="1.1">
-                                <div class="glass-card project-image-card tilt-card interactive-card magnetic-target" data-cursor-text="EXPLORE">
+                                <div class="glass-card project-image-card tilt-card interactive-card magnetic-target" data-blueprint-id="grahak-kavach" data-cursor-text="EXPLORE">
                                     <img src="img/grahak-kavach.svg" alt="Grahak-Kavach Food Safety & Legal Metrology Platform" class="project-image" loading="lazy">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Project 4: MedConnect (Real-Time Healthcare Stock Locator) -->
-                        <div class="project-row reverse">
+                        <div class="project-row reverse" data-project-id="medconnect">
                             <div class="project-info parallax-layer" data-speed="0.9">
                                 <span class="project-number">04</span>
                                 <h3 class="project-name">MedConnect</h3>
@@ -325,19 +350,25 @@
                                 <div class="project-tech">
                                     <span>JavaScript</span><span>Node.js</span><span>Express</span><span>Geolocation API</span><span>REST</span>
                                 </div>
-                                <a href="https://github.com/RushalBangar/MedConnect" target="_blank" rel="noopener noreferrer" class="link-arrow magnetic-target" data-cursor-scale="2">
-                                    View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                </a>
+                                <div class="project-actions">
+                                    <button class="btn-blueprint magnetic-target" data-blueprint-id="medconnect" data-cursor-text="BLUEPRINT">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                                        <span>System Blueprint</span>
+                                    </button>
+                                    <a href="https://github.com/RushalBangar/MedConnect" target="_blank" rel="noopener noreferrer" class="link-arrow magnetic-target" data-cursor-scale="1.8">
+                                        GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    </a>
+                                </div>
                             </div>
                             <div class="project-visual parallax-layer" data-speed="1.1">
-                                <div class="glass-card project-image-card tilt-card interactive-card magnetic-target" data-cursor-text="EXPLORE">
+                                <div class="glass-card project-image-card tilt-card interactive-card magnetic-target" data-blueprint-id="medconnect" data-cursor-text="EXPLORE">
                                     <img src="img/medconnect.svg" alt="MedConnect Healthcare Stock Locator" class="project-image" loading="lazy">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Project 5: LifeGuard (AI Flood Prediction & Alert System) -->
-                        <div class="project-row">
+                        <div class="project-row" data-project-id="lifeguard">
                             <div class="project-info parallax-layer" data-speed="0.9">
                                 <span class="project-number">05</span>
                                 <h3 class="project-name">LifeGuard</h3>
@@ -345,19 +376,25 @@
                                 <div class="project-tech">
                                     <span>Python</span><span>Machine Learning</span><span>Geospatial AI</span><span>Data Analytics</span>
                                 </div>
-                                <a href="https://github.com/RushalBangar/LifeGuard" target="_blank" rel="noopener noreferrer" class="link-arrow magnetic-target" data-cursor-scale="2">
-                                    View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                </a>
+                                <div class="project-actions">
+                                    <button class="btn-blueprint magnetic-target" data-blueprint-id="lifeguard" data-cursor-text="BLUEPRINT">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                                        <span>System Blueprint</span>
+                                    </button>
+                                    <a href="https://github.com/RushalBangar/LifeGuard" target="_blank" rel="noopener noreferrer" class="link-arrow magnetic-target" data-cursor-scale="1.8">
+                                        GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    </a>
+                                </div>
                             </div>
                             <div class="project-visual parallax-layer" data-speed="1.1">
-                                <div class="glass-card project-image-card tilt-card interactive-card magnetic-target" data-cursor-text="EXPLORE">
+                                <div class="glass-card project-image-card tilt-card interactive-card magnetic-target" data-blueprint-id="lifeguard" data-cursor-text="EXPLORE">
                                     <img src="img/lifeguard.png" alt="LifeGuard Flood Prediction & Early Warning System" class="project-image" loading="lazy">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Project 6: Bhu-Aadhaar-3D (3D ULPIN & Vertical Property Mapping) -->
-                        <div class="project-row reverse">
+                        <div class="project-row reverse" data-project-id="bhu-aadhaar">
                             <div class="project-info parallax-layer" data-speed="0.9">
                                 <span class="project-number">06</span>
                                 <h3 class="project-name">Bhu-Aadhaar-3D</h3>
@@ -365,12 +402,18 @@
                                 <div class="project-tech">
                                     <span>Three.js</span><span>WebGL</span><span>3D Spatial GIS</span><span>JavaScript</span><span>Cadastre</span>
                                 </div>
-                                <a href="https://github.com/RushalBangar/Bhu-Aadhaar-3D" target="_blank" rel="noopener noreferrer" class="link-arrow magnetic-target" data-cursor-scale="2">
-                                    View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                </a>
+                                <div class="project-actions">
+                                    <button class="btn-blueprint magnetic-target" data-blueprint-id="bhu-aadhaar" data-cursor-text="BLUEPRINT">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                                        <span>System Blueprint</span>
+                                    </button>
+                                    <a href="https://github.com/RushalBangar/Bhu-Aadhaar-3D" target="_blank" rel="noopener noreferrer" class="link-arrow magnetic-target" data-cursor-scale="1.8">
+                                        GitHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    </a>
+                                </div>
                             </div>
                             <div class="project-visual parallax-layer" data-speed="1.1">
-                                <div class="glass-card project-image-card tilt-card interactive-card magnetic-target" data-cursor-text="EXPLORE">
+                                <div class="glass-card project-image-card tilt-card interactive-card magnetic-target" data-blueprint-id="bhu-aadhaar" data-cursor-text="EXPLORE">
                                     <img src="img/bhu-aadhaar.svg" alt="Bhu-Aadhaar 3D ULPIN Cadastral Mapping" class="project-image" loading="lazy">
                                 </div>
                             </div>
@@ -597,6 +640,47 @@
                 </div>
             </section>
 
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         CYBER COMMAND PALETTE (⌘K / Ctrl+K)
+         ===================================================================== -->
+    <div id="cmd-palette" class="cmd-palette-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cmd-modal-title">
+        <div class="cmd-palette-card glass-card">
+            <div class="cmd-palette-header">
+                <span class="cmd-prompt-symbol">&gt;_</span>
+                <input type="text" id="cmd-input" class="cmd-palette-input" placeholder="Type a command or search (e.g. 'projects', 'resume', 'theme')..." autocomplete="off" spellcheck="false" aria-label="Command search">
+                <kbd class="cmd-kbd">ESC</kbd>
+            </div>
+            <div class="cmd-palette-body">
+                <div class="cmd-group-label" id="cmd-modal-title">COMMAND INTERFACE // AVAILABLE ACTIONS</div>
+                <div class="cmd-list" id="cmd-list" role="listbox">
+                    <!-- Populated dynamically by app.js -->
+                </div>
+            </div>
+            <div class="cmd-palette-footer">
+                <div class="cmd-hints">
+                    <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
+                    <span><kbd>↵</kbd> Select</span>
+                    <span><kbd>ESC</kbd> Close</span>
+                </div>
+                <div class="cmd-status">RUSHAL.OS // v2.6.4 ONLINE</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         SYSTEM BLUEPRINT PROJECT MODAL
+         ===================================================================== -->
+    <div id="project-modal" class="project-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="project-modal-dialog glass-card">
+            <button class="project-modal-close magnetic-target" id="modal-close-btn" aria-label="Close System Blueprint">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <div class="project-modal-scroll" id="project-modal-content">
+                <!-- Content injected dynamically by JS -->
+            </div>
         </div>
     </div>
 

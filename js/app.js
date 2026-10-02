@@ -924,6 +924,425 @@ function initApp() {
         });
     });
 
+    // -----------------------------------------------------------------------
+    // 12. COMMAND PALETTE (⌘K / Ctrl+K) & THEMES
+    // -----------------------------------------------------------------------
+    const cmdPalette = document.getElementById('cmd-palette');
+    const cmdInput = document.getElementById('cmd-input');
+    const cmdList = document.getElementById('cmd-list');
+    const cmdTriggers = document.querySelectorAll('.cmd-trigger');
+
+    // Themes persistence
+    const savedTheme = localStorage.getItem('rushal_theme') || 'cyber-cyan';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    function openExternalLink(url) {
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+    const commands = [
+        { id: 'proj', title: 'Jump to Case Studies', desc: 'Browse all 6 featured AI and engineering systems', icon: '⚡', category: 'NAV', action: () => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'synapse', title: 'Explore The Synapse (Skills)', desc: 'View AI, Data Science & Full-Stack competencies', icon: '🧠', category: 'NAV', action: () => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'journey', title: 'View Career Journey', desc: 'Academic path, independent lab & Google Student Ambassador', icon: '🚀', category: 'NAV', action: () => document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'verif', title: 'The Verifications (Credentials)', desc: '8 verified IBM, Kaggle, MongoDB & UI/UX certifications', icon: '🏆', category: 'NAV', action: () => document.getElementById('credentials')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'resume', title: 'Download Curriculum Vitae', desc: 'Instant access to Rushal Bangar PDF Resume', icon: '📄', category: 'ACTION', action: () => openExternalLink('Bangar_Rushal.Resume.pdf') },
+        { id: 'contact', title: 'Initiate Handshake (Contact)', desc: 'Direct phone, email, and social networks', icon: '📡', category: 'NAV', action: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) },
+        { id: 'theme-cyan', title: 'Theme: Cyber Cyan (Default)', desc: 'Neon cyan, electric purple & hot pink', icon: '💠', category: 'THEME', action: () => setTheme('cyber-cyan') },
+        { id: 'theme-matrix', title: 'Theme: Matrix Emerald', desc: 'Cyber green & deep phosphorescent blue', icon: '💚', category: 'THEME', action: () => setTheme('matrix-emerald') },
+        { id: 'theme-amber', title: 'Theme: Solar Amber', desc: 'Solar gold & neon warning orange', icon: '☀️', category: 'THEME', action: () => setTheme('solar-amber') },
+        { id: 'theme-vapor', title: 'Theme: Vapor Magenta', desc: 'Synthwave hot magenta & neon violet', icon: '🔮', category: 'THEME', action: () => setTheme('vapor-magenta') },
+        { id: 'github', title: 'Open GitHub Profile', desc: 'github.com/rushalbangar with 15+ repositories', icon: '🐙', category: 'EXTERNAL', action: () => openExternalLink('https://github.com/rushalbangar') },
+        { id: 'linkedin', title: 'Connect on LinkedIn', desc: 'linkedin.com/in/rushal-bangar-395a64385', icon: '💼', category: 'EXTERNAL', action: () => openExternalLink('https://www.linkedin.com/in/rushal-bangar-395a64385/') }
+    ];
+
+    let selectedIndex = 0;
+    let filteredCommands = [...commands];
+
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('rushal_theme', theme);
+        showToast(`Theme switched to ${theme.replace('-', ' ').toUpperCase()}`);
+    }
+
+    function renderCommandList() {
+        if (!cmdList) return;
+        cmdList.innerHTML = '';
+        if (filteredCommands.length === 0) {
+            cmdList.innerHTML = '<div style="padding: 1rem; color: var(--text-muted); font-size: 0.85rem; text-align: center;">No matching commands found.</div>';
+            return;
+        }
+
+        filteredCommands.forEach((cmd, idx) => {
+            const item = document.createElement('div');
+            item.className = `cmd-item ${idx === selectedIndex ? 'selected' : ''}`;
+            item.setAttribute('role', 'option');
+            item.setAttribute('aria-selected', idx === selectedIndex);
+            item.innerHTML = `
+                <div class="cmd-item-left">
+                    <span class="cmd-item-icon">${cmd.icon}</span>
+                    <div>
+                        <div class="cmd-item-title">${cmd.title}</div>
+                        <div class="cmd-item-desc">${cmd.desc}</div>
+                    </div>
+                </div>
+                <span class="cmd-item-badge">${cmd.category}</span>
+            `;
+            item.addEventListener('mouseenter', () => {
+                selectedIndex = idx;
+                updateSelectedCommand();
+            });
+            item.addEventListener('click', () => {
+                executeCommand(cmd);
+            });
+            cmdList.appendChild(item);
+        });
+    }
+
+    function updateSelectedCommand() {
+        const items = cmdList.querySelectorAll('.cmd-item');
+        items.forEach((item, idx) => {
+            if (idx === selectedIndex) {
+                item.classList.add('selected');
+                item.scrollIntoView({ block: 'nearest' });
+            } else {
+                item.classList.remove('selected');
+            }
+        });
+    }
+
+    function executeCommand(cmd) {
+        closeCommandPalette();
+        if (cmd && cmd.action) {
+            cmd.action();
+        }
+    }
+
+    function openCommandPalette() {
+        cmdPalette.classList.add('active');
+        cmdPalette.setAttribute('aria-hidden', 'false');
+        if (cmdInput) {
+            cmdInput.value = '';
+            filteredCommands = [...commands];
+            selectedIndex = 0;
+            renderCommandList();
+            setTimeout(() => cmdInput.focus(), 50);
+        }
+    }
+
+    function closeCommandPalette() {
+        if (!cmdPalette || !cmdPalette.classList.contains('active')) return;
+        cmdPalette.classList.remove('active');
+        cmdPalette.setAttribute('aria-hidden', 'true');
+    }
+
+    cmdTriggers.forEach(btn => btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openCommandPalette();
+    }));
+
+    window.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            if (cmdPalette && cmdPalette.classList.contains('active')) {
+                closeCommandPalette();
+            } else {
+                openCommandPalette();
+            }
+        } else if (e.key === 'Escape') {
+            closeCommandPalette();
+            closeProjectModal();
+        }
+    });
+
+    cmdPalette?.addEventListener('click', (e) => {
+        if (e.target === cmdPalette) closeCommandPalette();
+    });
+
+    cmdInput?.addEventListener('input', (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        filteredCommands = commands.filter(c => 
+            c.title.toLowerCase().includes(q) || 
+            c.desc.toLowerCase().includes(q) || 
+            c.category.toLowerCase().includes(q)
+        );
+        selectedIndex = 0;
+        renderCommandList();
+    });
+
+    cmdInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedIndex = (selectedIndex + 1) % filteredCommands.length;
+            updateSelectedCommand();
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedIndex = (selectedIndex - 1 + filteredCommands.length) % filteredCommands.length;
+            updateSelectedCommand();
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (filteredCommands[selectedIndex]) {
+                executeCommand(filteredCommands[selectedIndex]);
+            }
+        }
+    });
+
+    // -----------------------------------------------------------------------
+    // 14. SYSTEM BLUEPRINT PROJECT DETAIL MODALS
+    // -----------------------------------------------------------------------
+    const projectBlueprints = {
+        vivavox: {
+            title: 'VivaVox',
+            tag: 'MULTIMODAL AI // ORAL EXAMINATION EVALUATOR',
+            desc: 'VivaVox is an intelligent automated viva evaluator designed to conduct real-time multimodal interviews, assessing technical precision, conceptual reasoning, and voice confidence with instant rubric scoring.',
+            pipeline: [
+                { title: 'Audio Stream', sub: 'WebRTC / Mic Input' },
+                { title: 'Speech Parsing', sub: 'Phonetic NLP Parser' },
+                { title: 'Gemini Multimodal', sub: 'Semantic Evaluator' },
+                { title: 'Rubric Matrix', sub: 'Instant Grade & Critique' }
+            ],
+            highlights: [
+                { title: 'Automated Subject Rubrics', text: 'Dynamically generates viva questions across Computer Science, AI, and algorithmic problem-solving.' },
+                { title: 'Confidence & Articulation Telemetry', text: 'Measures vocal pace, pause frequency, and speech confidence to deliver holistic candidate evaluations.' },
+                { title: 'Multimodal Response Grading', text: 'Evaluates spoken responses against verified technical ground truths with 95%+ conceptual fidelity.' },
+                { title: 'Instant Interactive Report Card', text: 'Outputs structured PDF critique highlighting strengths, knowledge gaps, and study recommendations.' }
+            ],
+            stack: ['TypeScript', 'React', 'Gemini Multimodal AI', 'WebRTC', 'Tailwind CSS', 'Node.js'],
+            repoUrl: 'https://github.com/RushalBangar/VivaVox',
+            cloneCmd: 'git clone https://github.com/RushalBangar/VivaVox.git'
+        },
+        'smart-bharat': {
+            title: 'Smart-Bharat',
+            tag: 'GENAI CIVIC TECH // NATIONAL WELFARE SUITE',
+            desc: 'A GenAI-driven civic platform engineered to demystify complex government schemes, empower citizens with automated application pre-fills, and route verified municipal grievances directly to urban local bodies.',
+            pipeline: [
+                { title: 'Citizen Voice/Chat', sub: 'Multilingual Input' },
+                { title: 'GenAI NLP Router', sub: 'Scheme Matching Engine' },
+                { title: 'Geo-Verification', sub: 'GPS Image Hash' },
+                { title: 'Municipal Dispatch', sub: 'Automated Civic Ticket' }
+            ],
+            highlights: [
+                { title: 'Voice-First Multilingual Assistant', text: 'Natural language dialogue supporting Marathi, Hindi, and English for inclusive digital democracy.' },
+                { title: 'Automated DISCOM & Housing Pre-fills', text: 'Extracts user requirements and pre-populates official application forms for schemes like PM Surya Ghar.' },
+                { title: 'Geo-Verified Civic Redressal', text: 'Citizens upload geo-tagged infrastructure photos which are automatically validated and routed to local wards.' },
+                { title: '98.4% Resolution Efficiency', text: 'Reduces citizen grievance overhead by eliminating paper bureaucracy and tracking tickets end-to-end.' }
+            ],
+            stack: ['GenAI', 'JavaScript', 'Natural Language Processing', 'Express.js', 'GeoJSON', 'Tailwind CSS'],
+            repoUrl: 'https://github.com/RushalBangar/Smart-Bharat',
+            cloneCmd: 'git clone https://github.com/RushalBangar/Smart-Bharat.git'
+        },
+        'grahak-kavach': {
+            title: 'Grahak-Kavach',
+            tag: 'AI COMPUTER VISION // LEGAL METROLOGY & FOOD SAFETY',
+            desc: 'An AI-powered unified compliance scanner that inspects packaged commodity labels using computer vision to detect obscured expiry dates, verify Legal Metrology adherence, audit harmful ingredients, and auto-generate consumer dispute dossiers.',
+            pipeline: [
+                { title: 'Label Image Capture', sub: 'High-Res Optical Feed' },
+                { title: 'Bounding Box OCR', sub: 'Feature Coordinate Extractor' },
+                { title: 'FSSAI Rule Engine', sub: 'Compliance & Additive Audit' },
+                { title: 'Legal Dossier PDF', sub: 'Evidence Pack Generator' }
+            ],
+            highlights: [
+                { title: '99.2% OCR Precision on Packaging', text: 'Extracts tiny nutritional values, MRP, batch codes, and manufacturer addresses from curved physical packages.' },
+                { title: 'Legal Metrology Verification', text: 'Audits mandatory declarations including net quantity, unit sale price, and genuine 14-digit FSSAI licenses.' },
+                { title: 'Harmful Additive & Allergen Detection', text: 'Flags excessive sodium, hidden sugars, trans fats, and Class II preservatives against medical guidelines.' },
+                { title: 'One-Tap Evidence Generator', text: 'Compiles timestamped OCR violations into a legally formatted evidence pack ready for the National Consumer Helpline.' }
+            ],
+            stack: ['Computer Vision', 'OCR Engine', 'Legal Metrology AI', 'JavaScript', 'HTML5 Canvas', 'REST APIs'],
+            repoUrl: 'https://github.com/RushalBangar/Grahak-Kavach',
+            cloneCmd: 'git clone https://github.com/RushalBangar/Grahak-Kavach.git'
+        },
+        medconnect: {
+            title: 'MedConnect',
+            tag: 'SPATIAL LOGISTICS // EMERGENCY HEALTHCARE RADAR',
+            desc: 'A real-time localized pharmaceutical locator connecting patients and emergency healthcare teams with live drug inventories, mitigating life-threatening shortages during critical medical emergencies.',
+            pipeline: [
+                { title: 'Patient Geolocation', sub: 'Browser Coordinates' },
+                { title: 'Proximity Spatial Ping', sub: '5km Radius Filter' },
+                { title: 'Pharmacy Inventory API', sub: 'Live Verified Stock Sync' },
+                { title: 'Emergency Dispatch', sub: 'Optimal Route Navigation' }
+            ],
+            highlights: [
+                { title: 'Sub-14 Minute Emergency Dispatch', text: 'Dramatically cuts time spent manually calling pharmacies for urgent medications like Insulin and blood thinners.' },
+                { title: 'SOS Broadcast Transmission', text: 'Enables clinics and patients to broadcast urgent medicine requests to all verified chemists within city limits.' },
+                { title: 'Interactive Cluster Radar', text: 'Displays active stock density heatmaps with direct turn-by-turn navigation to the nearest open store.' },
+                { title: 'Anti-Hoarding Validation', text: 'Inventory verification algorithms prevent phantom listings and ensure stock reliability during crises.' }
+            ],
+            stack: ['Node.js', 'Express.js', 'JavaScript', 'Geolocation API', 'Leaflet GIS', 'CSS Grid'],
+            repoUrl: 'https://github.com/RushalBangar/MedConnect',
+            cloneCmd: 'git clone https://github.com/RushalBangar/MedConnect.git'
+        },
+        lifeguard: {
+            title: 'LifeGuard',
+            tag: 'PREDICTIVE AI // FLOOD MITIGATION & CLIMATE RADAR',
+            desc: 'An AI-driven disaster risk warning system that continuously ingests hydrologic sensor feeds and geospatial meteorological models to compute flood water accumulation curves hours before inundation occurs.',
+            pipeline: [
+                { title: 'Weather & River Sensors', sub: 'Telemetry Ingestion' },
+                { title: 'Hydrologic ML Model', sub: 'Inundation Curve Compute' },
+                { title: 'Risk Contour Mapping', sub: 'Geospatial Topography' },
+                { title: 'Preventative Alerts', sub: 'Public Warning Dispatch' }
+            ],
+            highlights: [
+                { title: 'Predictive Inundation Computation', text: 'Forecasts localized flood crests up to 6 hours in advance based on upstream rainfall and dam discharge data.' },
+                { title: 'Topographical Elevation Modeling', text: 'Maps water spread vectors across low-lying urban pockets and rural riverbanks.' },
+                { title: 'Automated Early Warning Signals', text: 'Dispatches targeted evacuation notices to municipal authorities and at-risk residential zones.' },
+                { title: 'Resilience Analytics Dashboard', text: 'Enables disaster management teams to allocate rescue boats and emergency resources before roads submerge.' }
+            ],
+            stack: ['Python', 'Machine Learning', 'Data Visualization', 'Pandas / NumPy', 'Flask', 'Geospatial GIS'],
+            repoUrl: 'https://github.com/RushalBangar/LifeGuard',
+            cloneCmd: 'git clone https://github.com/RushalBangar/LifeGuard.git'
+        },
+        'bhu-aadhaar': {
+            title: 'Bhu-Aadhaar-3D',
+            tag: '3D SPATIAL GIS // VERTICAL PROPERTY CADASTRAL MAPPING',
+            desc: 'A next-generation land governance system pioneering 3D ULPIN (Unique Land Parcel Identification Number) generation for multi-level vertical high-rises and subterranean properties.',
+            pipeline: [
+                { title: '2D Cadastral GeoJSON', sub: 'Revenue Land Survey' },
+                { title: 'WebGL 3D Extrusion', sub: 'Volumetric Geometry Engine' },
+                { title: '14-Digit ULPIN Assign', sub: 'ISO/Standardized Land ID' },
+                { title: 'Digital Title Export', sub: 'BIM / GeoJSON Standard' }
+            ],
+            highlights: [
+                { title: 'Volumetric Parcel Demarcation', text: 'Solves the fatal flaw of 2D land titles by assigning distinct spatial bounding boxes to individual skyscraper floors.' },
+                { title: 'Sub-Surface Rights Registry', text: 'Maps underground parking units, transit tunnels, and basement easements with precise elevation metrics.' },
+                { title: 'Interactive WebGL 3D Viewport', text: 'Inspect buildings, rotate perspective views, and query ownership metadata in hardware-accelerated 3D.' },
+                { title: 'Land Revenue Standards Certified', text: 'Compliant with national digital land records modernization programs and standardized 14-digit ULPIN formats.' }
+            ],
+            stack: ['Three.js', 'WebGL', '3D Spatial GIS', 'JavaScript', 'Cadastre Engine', 'HTML5 Canvas'],
+            repoUrl: 'https://github.com/RushalBangar/Bhu-Aadhaar-3D',
+            cloneCmd: 'git clone https://github.com/RushalBangar/Bhu-Aadhaar-3D.git'
+        }
+    };
+
+    const projectModal = document.getElementById('project-modal');
+    const projectModalContent = document.getElementById('project-modal-content');
+    const modalCloseBtn = document.getElementById('modal-close-btn');
+
+    function openProjectModal(projectId) {
+        const bp = projectBlueprints[projectId];
+        if (!bp || !projectModalContent) return;
+
+        projectModalContent.innerHTML = `
+            <div class="blueprint-header">
+                <div class="blueprint-tag">
+                    <span class="pulse-dot"></span>
+                    <span>${bp.tag}</span>
+                </div>
+                <h2 class="blueprint-title">${bp.title}</h2>
+                <p class="blueprint-desc">${bp.desc}</p>
+            </div>
+
+            <!-- Architecture Pipeline -->
+            <div class="blueprint-section">
+                <h3 class="blueprint-section-title">System Architecture &amp; Data Pipeline</h3>
+                <div class="architecture-pipeline">
+                    ${bp.pipeline.map((node, i) => `
+                        <div class="arch-node">
+                            <div class="arch-node-title">${node.title}</div>
+                            <div class="arch-node-sub">${node.sub}</div>
+                        </div>
+                        ${i < bp.pipeline.length - 1 ? '<span class="arch-connector">&rarr;</span>' : ''}
+                    `).join('')}
+                </div>
+            </div>
+
+            <!-- Engineering Highlights -->
+            <div class="blueprint-section">
+                <h3 class="blueprint-section-title">Engineering Innovations &amp; Impact</h3>
+                <div class="blueprint-grid">
+                    ${bp.highlights.map(hl => `
+                        <div class="blueprint-item">
+                            <div class="blueprint-item-title">${hl.title}</div>
+                            <div class="blueprint-item-text">${hl.text}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <!-- Tech Stack -->
+            <div class="blueprint-section">
+                <h3 class="blueprint-section-title">Verified Technologies</h3>
+                <div class="blueprint-tech-list">
+                    ${bp.stack.map(tech => `<span class="blueprint-tech-badge">${tech}</span>`).join('')}
+                </div>
+            </div>
+
+            <!-- Quick Clone Box -->
+            <div class="blueprint-section">
+                <h3 class="blueprint-section-title">Terminal Quick Clone</h3>
+                <div class="blueprint-clone-box">
+                    <span class="blueprint-clone-cmd">${bp.cloneCmd}</span>
+                    <button class="blueprint-copy-btn magnetic-target" data-copy-cmd="${bp.cloneCmd}">Copy</button>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="blueprint-footer">
+                <a href="${bp.repoUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary magnetic-target" data-cursor-text="GITHUB">
+                    <span class="btn-text">Launch Repository</span>
+                </a>
+                <button class="btn btn-secondary magnetic-target" id="modal-dismiss-btn" data-cursor-text="CLOSE">
+                    <span class="btn-text">Dismiss Blueprint</span>
+                </button>
+            </div>
+        `;
+
+        // Wire copy button inside modal
+        projectModalContent.querySelector('.blueprint-copy-btn')?.addEventListener('click', async (e) => {
+            const btn = e.currentTarget;
+            const cmd = btn.getAttribute('data-copy-cmd');
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(cmd);
+                } else {
+                    const temp = document.createElement('textarea');
+                    temp.value = cmd;
+                    document.body.appendChild(temp);
+                    temp.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(temp);
+                }
+                btn.textContent = 'Copied!';
+                showToast(`✓ Copied: ${cmd}`);
+                setTimeout(() => (btn.textContent = 'Copy'), 2000);
+            } catch (err) {
+                showToast(`✓ Copied: ${cmd}`);
+            }
+        });
+
+        // Wire dismiss button
+        projectModalContent.querySelector('#modal-dismiss-btn')?.addEventListener('click', closeProjectModal);
+
+        projectModal.classList.add('active');
+        projectModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeProjectModal() {
+        if (!projectModal || !projectModal.classList.contains('active')) return;
+        projectModal.classList.remove('active');
+        projectModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+
+    // Attach click listeners to all blueprint triggers
+    document.querySelectorAll('[data-blueprint-id]').forEach(el => {
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const id = el.getAttribute('data-blueprint-id');
+            if (id) openProjectModal(id);
+        });
+    });
+
+    modalCloseBtn?.addEventListener('click', closeProjectModal);
+    projectModal?.addEventListener('click', (e) => {
+        if (e.target === projectModal) closeProjectModal();
+    });
+
     // Refresh ScrollTrigger cleanly
     requestAnimationFrame(() => {
         ScrollTrigger.refresh();
